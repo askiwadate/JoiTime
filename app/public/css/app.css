@@ -73,6 +73,7 @@ body {
   color: #212529;
   text-align: left;
   background-color: #f8fafc;
+  height: 100vh;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -2656,6 +2657,7 @@ textarea.form-control.is-invalid {
   }
 }
 
+
 .btn:hover {
   color: #212529;
   text-decoration: none;
@@ -2680,6 +2682,7 @@ a.btn.disabled,
 fieldset:disabled a.btn {
   pointer-events: none;
 }
+
 
 .btn-primary {
   color: #fff;
@@ -2890,6 +2893,11 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #e3342f;
   border-color: #e3342f;
+  font-size: 0.8rem;
+}
+
+.btn-required {
+  padding: 0.3rem 0.95rem;
 }
 
 .btn-danger:hover {
@@ -3298,8 +3306,8 @@ fieldset:disabled a.btn {
 }
 
 .btn-link {
-  font-weight: 400;
-  color: #3490dc;
+  font-weight: 600;
+  color: #000;
   text-decoration: none;
 }
 
@@ -4551,7 +4559,7 @@ input[type=button].btn-block {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
 }
 
 .navbar .container,
@@ -7004,7 +7012,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #3490dc !important;
+  background-color: #FFFDF8 !important;
 }
 
 a.bg-primary:hover,
@@ -7180,7 +7188,7 @@ button.bg-dark:focus {
 }
 
 .rounded {
-  border-radius: 0.25rem !important;
+  border-radius: 1rem !important;
 }
 
 .rounded-top {
@@ -8296,6 +8304,11 @@ button.bg-dark:focus {
   position: sticky !important;
 }
 
+.position-center{
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
 .fixed-top {
   position: fixed;
   top: 0;
@@ -8692,7 +8705,7 @@ button.bg-dark:focus {
 
 .pt-5,
 .py-5 {
-  padding-top: 3rem !important;
+  padding-top: 6.5rem !important;
 }
 
 .pr-5,

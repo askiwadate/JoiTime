@@ -1,34 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- CSRF Token -->
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+@extends('layouts/layout')
 
-  <title>{{ config('app.name','JoiTime') }}</title>
+@section('content')
 
-  <!-- Scripts -->
-  <script src="{{ asset('js/app.js') }}" defer></script>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-  @yield('stylesheet')
-
-</head>
-<body>
-  <nav class="navbar">
-    <div class="container">
-      <a href="">
-        <img src="{{ asset('img/logo.png') }}" alt="">
-      </a>
+<section class="d-flex align-items-center" style=" background-color: #FFFDF8; min-height: calc(100vh - 57px);">
+    <div class="card card-body col-6 m-auto">
+      <form action="" method="POST">
+        @csrf
+        <p class="h3 font-weight-bold card-title text-center mt-3">ログイン</p>
+        <div class="form-group mt-4 mr-2 ml-3">
+          <label for="email">メールアドレス<span class="ml-2 btn-danger rounded btn-required">必須</span></label>
+          <input type="text" class="form-control form-inline w-100 m-0" id="email" name="email" placeholder="test@example.com" required>
+        </div>
+        <div class="form-group mr-2 ml-3">
+          <label for="password">パスワード<span class="ml-2 btn-danger rounded btn-required">必須</span></label>
+          <input type="password" class="form-control form-inline w-100 m-0" id="password" name="password" required>
+        </div>
+        <div class="text-center mt-4">
+          <a href="" class="btn-link">パスワードを忘れた方はこちら</a>
+        </div>
+        <div class="text-center mt-4">
+          <button type="submit" form=""  style="background-color: #3E6ED6; color: #FFFF; border-radius: 6rem; padding: 0.5rem 3.2rem; border: none;">ログイン</button>
+        </div>
+      </form>
     </div>
-  
-</body>
-</html>
+  </section>
+
+@endsection
