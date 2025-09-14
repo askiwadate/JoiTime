@@ -24,7 +24,7 @@
         <input type="date" class="form-control w-100" id="password" name="password">
       </div>
       <div class="text-center mt-4 form-group">
-        <button type="submit" form="" class="btn-submit">新規登録</button>
+        <button type="submit" form="" class="mt-3 btn-submit">新規登録</button>
       </div>
     </form>
   </div>

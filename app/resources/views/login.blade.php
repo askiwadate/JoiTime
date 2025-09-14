@@ -19,7 +19,7 @@
           <a href="" class="btn-link">パスワードを忘れた方はこちら</a>
         </div>
         <div class="text-center mt-4 form-group">
-          <button type="submit" form="" class="btn-submit">ログイン</button>
+          <button type="submit" form="" class="mt-3 btn-submit">ログイン</button>
         </div>
       </form>
     </div>

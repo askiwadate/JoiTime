@@ -171,13 +171,13 @@ sup {
 }
 
 a {
-  color: #3490dc;
+  color: #000;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: rgb(28.75, 104.3214285714, 166.75);
+  color: #3E6ED6;
   text-decoration: underline;
 }
 
@@ -215,15 +215,25 @@ img {
   border-style: none;
 }
 
+.img-nonimg{
+  width: 2rem;
+  height: 2rem;
+  border: none;
+}
+
 svg {
   overflow: hidden;
   vertical-align: middle;
 }
 
-.svg-big{
-  width: 30%;
+.svg-1{
+  width: 25%;
   display: flex;
-  margin: 0 auto;
+}
+
+.svg-2{
+  width: 1.8rem;
+  display: flex;
 }
 
 table {
@@ -4496,6 +4506,21 @@ input[type=button].btn-block {
   }
 }
 
+#sidebar {
+  padding-left: 0;
+  padding-right: 0;
+  
+}
+
+
+.month{
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-style: italic;
+  margin-bottom: 0;
+}
+
 .nav {
   display: flex;
   flex-wrap: wrap;
@@ -4507,6 +4532,7 @@ input[type=button].btn-block {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  white-space: nowrap;
 }
 
 .nav-link:hover,
@@ -4544,11 +4570,13 @@ input[type=button].btn-block {
   border-color: transparent;
 }
 
-.nav-tabs .nav-link.active,
+.nav .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #495057;
-  background-color: #f8fafc;
-  border-color: #dee2e6 #dee2e6 #f8fafc;
+  color: #3E6ED6;
+  background-color: #8ba3d6;
+  border:solid 1px #3E6ED6;
+  border-radius: 8px;
+  width: 10rem;
 }
 
 .nav-tabs .dropdown-menu {
@@ -4590,6 +4618,7 @@ input[type=button].btn-block {
   display: block;
 }
 
+
 .navbar {
   position: relative;
   display: flex;
@@ -4598,6 +4627,28 @@ input[type=button].btn-block {
   justify-content: space-between;
   padding: 1rem 1rem;
 }
+
+.navbar-after{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.78rem 0.78rem;
+}
+
+.navbar-after .container,
+.navbar-after .container-fluid,
+.navbar-after .container-sm,
+.navbar-after .container-md,
+.navbar-after .container-lg,
+.navbar-after .container-xl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
 
 .navbar .container,
 .navbar .container-fluid,
