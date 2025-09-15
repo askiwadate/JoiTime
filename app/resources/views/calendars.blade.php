@@ -10,7 +10,7 @@
         <div class="position-sticky pt-md-5" style="background-color: #FFFDF8; min-height: calc(100vh - 57px); padding: 0rem 0.78rem 0.78rem 0.78rem;">
           <ul class="nav flex-column align-items-center">
             <li class="nav-item mb-4">
-              <a class="nav-link active d-flex align-items-center" aria-current="page" href="#">
+              <a class="nav-link active d-flex align-items-center" aria-current="page" href="#" data-toggle="modal" data-target="#categoryAddModal">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Pro v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc.--><path d="M238.9 336C249.6 336 259.6 341.3 265.5 350.2L277.3 368L304 368C330.5 368 352 389.5 352 416L352 528C352 554.5 330.5 576 304 576L112 576C85.5 576 64 554.5 64 528L64 416C64 389.5 85.5 368 112 368L138.7 368L150.5 350.2C156.4 341.3 166.4 336 177.1 336L238.8 336zM517.5 324C523.1 319.1 531.4 318.7 537.4 323.1C543.4 327.5 545.7 335.5 542.7 342.4L504.3 432L560 432C566.7 432 572.6 436.1 575 442.4C577.4 448.7 575.6 455.7 570.6 460.1L442.6 572.1C437 577 428.7 577.4 422.7 573C416.7 568.6 414.4 560.6 417.4 553.7L455.9 464L400.1 464C393.4 464 387.5 459.9 385.1 453.6C382.7 447.3 384.5 440.3 389.5 435.9L517.5 323.9zM208 424C181.5 424 160 445.5 160 472C160 498.5 181.5 520 208 520C234.5 520 256 498.5 256 472C256 445.5 234.5 424 208 424zM547.8 64.4C554.3 63.3 560.9 64.8 566.3 68.8C572.4 73.3 576 80.5 576 88L576 240L575.7 244.9C572.4 269.1 545.2 288 512 288C476.7 288 448 266.5 448 240C448 213.5 476.7 192 512 192C517.5 192 522.9 192.6 528 193.6L528 144.3L416 177.9L416 288.1L415.7 293C412.4 317.2 385.2 336.1 352 336.1C316.7 336.1 288 314.6 288 288.1C288 261.6 316.7 240.1 352 240.1C357.5 240.1 362.9 240.7 368 241.7L368 136C368 125.4 375 116 385.1 113L545.1 65L547.8 64.4zM252.9 64C290 64 320 94 320 131.1L320 137.2C320 193.3 244.8 249.3 209.7 272.5C198.9 279.6 185.1 279.6 174.3 272.5C139.2 249.4 64 193.3 64 137.2L64 131.1C64 94 94 64 131.1 64C152.2 64 172 73.9 184.7 90.8L192 100.6L199.3 90.8C212 73.9 231.8 64 252.9 64z"/></svg>
                 <span class="ml-2">カテゴリ</span>
               </a>
@@ -37,16 +37,248 @@
         </div>
       </nav>
       <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-        <div class="d-flex">
-          <button type="button" style="background-color: transparent; border: none;" id="prev" onclick="prev()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320zM335 199C344.4 189.6 359.6 189.6 368.9 199C378.2 208.4 378.3 223.6 368.9 232.9L281.9 319.9L368.9 406.9C378.3 416.3 378.3 431.5 368.9 440.8C359.5 450.1 344.3 450.2 335 440.8L231 337C221.6 327.6 221.6 312.4 231 303.1L335 199z"/></svg></button>
-          <p class="month ml-3 mr-3" id="today-month"></p>
-          <button type="button" style="background-color: transparent; border: none;" id="next" onclick="next()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM305 441C295.6 450.4 280.4 450.4 271.1 441C261.8 431.6 261.7 416.4 271.1 407.1L358.1 320.1L271.1 233.1C261.7 223.7 261.7 208.5 271.1 199.2C280.5 189.9 295.7 189.8 305 199.2L409 303C418.4 312.4 418.4 327.6 409 336.9L305 441z"/></svg></button>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex">
+            <button type="button" style="background-color: transparent; border: none;" id="prev" onclick="prev()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320zM335 199C344.4 189.6 359.6 189.6 368.9 199C378.2 208.4 378.3 223.6 368.9 232.9L281.9 319.9L368.9 406.9C378.3 416.3 378.3 431.5 368.9 440.8C359.5 450.1 344.3 450.2 335 440.8L231 337C221.6 327.6 221.6 312.4 231 303.1L335 199z"/></svg></button>
+            <p class="month ml-3 mr-3" id="today-month"></p>
+            <button type="button" style="background-color: transparent; border: none;" id="next" onclick="next()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM305 441C295.6 450.4 280.4 450.4 271.1 441C261.8 431.6 261.7 416.4 271.1 407.1L358.1 320.1L271.1 233.1C261.7 223.7 261.7 208.5 271.1 199.2C280.5 189.9 295.7 189.8 305 199.2L409 303C418.4 312.4 418.4 327.6 409 336.9L305 441z"/></svg></button>
+          </div>
+
+          <div class="d-flex">
+            <button type="button" class="ml-2 mr-1 btn-change">月表示</button>
+            <button type="button" class="ml-2 mr-1 btn-change">週表示</button>
+              <select class="ml-2 mr-3 select-change">
+                <option value="" selected>メンバー表示切り替え</option>
+                <option value="">
+                <!-- 共有メンバーを選べるように -->
+                たろう
+                </option>
+              </select>
+          </div>
         </div>
-        <div id="calendar"></div>
+        <div id="calendar" class="table-responsive mt-4"></div>
+        <!-- 予定作成ボタン -->
+        <a href="#">
+          <div class="position-fixed rounded-circle text-white d-flex justify-content-center align-items-center" style="background: #3E6ED6; bottom: 2%; right: 2%; width: 55px; height: 55px;" data-toggle="modal" data-target="#postModal">
+            <i class="fas fa-plus"></i>
+          </div>
+        </a>
       </main>
     </div>
   </div>
+  <!-- モーダル -->
+  <!-- 検索モーダル -->
+  <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center">
+          <h5 class="modal-title" id="searchModalLabel">予定作成</h5>
+          <button type="button" class="close position-absolute" style="right: 15px;" data-dismiss="modal" aria-label="閉じる">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="" method="POST">
+          @csrf
+          <div class="modal-body pr-5 pl-5">
+            <div class="form-group d-flex justify-content-between">
+              <div style="width: 12rem;">
+                <label for="start-date">開始日</label>
+                <input type="date" class="form-control" id="start-date">
+              </div>
+              <div style="width: 12rem;">
+                <label for="end-date">終了日</label>
+                <input type="date" class="form-control" id="end-date">
+              </div>
+            </div>
 
+            <div class="form-group">
+              <label for="category">カテゴリ</label>
+                <select name="category" class="form-control">
+                  <option value="">⛰️登山</option>
+                  <option value="">😍デート</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+              <label for="category">メンバー</label>
+                <select name="category" class="form-control">
+                  <option value="">たろう</option>
+                  <option value="">みさき</option>
+                </select>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-primary">検索</button>
+          </div>
+        </form>
+        <div class="modal-body pr-5 pl-5">
+          <table class="table">
+            <thead>
+              <!-- 予定の日付 -->
+              <tr>
+                <th scope="col">日付</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <!-- 予定作成者アイコン -->
+                  <button class="rounded-circle img-nonimg ml-3"><img src="" alt="" class=""></button>
+                </td>
+                <td>
+                  <!-- カテゴリアイコン -->
+                  <p>⛰️</p>
+                </td>
+                <td>
+                  <!-- 予定タイトル -->
+                  <p>富士山登る</p>
+                </td>
+                <td class="d-flex">
+                  <!-- 予定の時間 -->
+                  <p>10:00</p>
+                  ~
+                  <p>19:00</p>
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <td>
+                  <!-- 予定作成者アイコン -->
+                  <button class="rounded-circle img-nonimg ml-3"><img src="" alt="" class=""></button>
+                </td>
+                <td>
+                  <!-- カテゴリアイコン -->
+                  <p>⛰️</p>
+                </td>
+                <td>
+                  <!-- 予定タイトル -->
+                  <p>富士山登る</p>
+                </td>
+                <td class="d-flex">
+                  <!-- 予定の時間 -->
+                  <p>10:00</p>
+                  ~
+                  <p>19:00</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 投稿モーダル -->
+  <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <h5 class="modal-title" id="searchModalLabel">予定作成</h5>
+        <button type="button" class="close position-absolute" style="right: 15px;" data-dismiss="modal" aria-label="閉じる">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="" method="POST">
+        @csrf
+        <div class="modal-body pr-5 pl-5">
+          <div class="form-group">
+            <label for="category">タイトル</label>
+            <input type="text" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <div class="d-flex justify-content-between align-items-center">
+              <label for="start-date">開始</label>
+              <input type="date" class="form-control" id="start-date" style="width: 10rem;">
+              <input type="time" class="form-control" style="width: 10rem;">
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <label for="end-date">終了</label>
+              <input type="date" class="form-control" id="end-date" style="width: 10rem;">
+              <input type="time" class="form-control" style="width: 10rem;">
+            </div>
+
+            <div class="d-flex align-items-center mt-2 mb-3">
+              <input type="checkbox" class="mr-2" aria-label="Checkbox for following text input" id="fullday">
+              <label for="fullday" class="mb-0">終日</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="category">カテゴリ</label>
+            <select name="category" class="form-control">
+              <option value="">⛰️登山</option>
+              <option value="">😍デート</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="place">場所</label>
+            <!-- ここでAPI連携 -->
+            <input type="text" id="place-input" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="comment">コメント／メモ</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+        </div> <!-- modal-body end -->
+
+        <div class="d-flex justify-content-center mb-3">
+          <button type="submit" class="btn btn-primary">投稿</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+  <!-- カテゴリ登録モーダル -->
+  <div class="modal fade" id="categoryAddModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center">
+          <h5 class="modal-title" id="searchModalLabel">カテゴリ登録</h5>
+          <button type="button" class="close position-absolute" style="right: 15px;" data-dismiss="modal" aria-label="閉じる">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="" method="POST">
+          @csrf
+          <div class="modal-body pr-5 pl-5">
+            <div class="form-group">
+              <label for="categoryName">カテゴリ名</label>
+              <input type="text" class="form-control" id="categoryName">
+            </div>
+
+            <div class="form-group">
+              <label for="emoji">カテゴリアイコン</label>
+              <input type="text" class="form-control" id="emoji">
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-primary">追加</button>
+            </div>
+          </div>
+        </form>
+        <div class="modal-body pr-5 pl-5">
+          <div class="container">
+            <div class="row" style="row-gap: 0.5rem; column-gap: 1rem;">
+              <div class="col p-3 rounded-lg">⛰️＋登山</div>
+              <div class="col p-3 rounded-lg">😍＋デート</div>
+              <div class="w-100"></div>
+              <div class="col p-3 rounded-lg">🍽️＋外食</div>
+              <div class="col p-3 rounded-lg">🍖＋バーベキュー</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
 </section>
 
 @endsection
@@ -54,71 +286,88 @@
 <script>
 
 document.addEventListener('DOMContentLoaded', function() {
+  // 曜日の配列（日曜はじまり）
   const week = ["日", "月", "火", "水", "木", "金", "土"];
+
+  // 今日の日付を取得
   const today = new Date();
+
+  // 表示中のカレンダーの基準日（最初は当月の1日をセット）
   let showDate = new Date(today.getFullYear(), today.getMonth(), 1);
 
   // 初期表示
-  showProcess(today);
+  showProcess(showDate);
 
-  // 前の月表示
-  window.prev = function() {
-    showDate.setMonth(showDate.getMonth() - 1);
+  // === イベントリスナーでボタンに動きをつける ===
+  document.getElementById('prev').addEventListener('click', function() {
+    showDate.setMonth(showDate.getMonth() - 1); // 月を1つ戻す
     showProcess(showDate);
-  }
+  });
 
-  // 次の月表示
-  window.next = function() {
-    showDate.setMonth(showDate.getMonth() + 1);
+  document.getElementById('next').addEventListener('click', function() {
+    showDate.setMonth(showDate.getMonth() + 1); // 月を1つ進める
     showProcess(showDate);
-  }
+  });
 
-  // カレンダー表示
+  // カレンダーを表示する関数
   function showProcess(date) {
     let year = date.getFullYear();
-    let month = date.getMonth();
+    let month = date.getMonth(); // 0〜11で返るので +1 が必要
+
+    // 年と月を表示（スペースに &nbsp; を使う）
     document.querySelector('#today-month').innerHTML = year + "年&nbsp;" + (month + 1) + "月";
 
+    // カレンダーを作成
     let calendar = createProcess(year, month);
     document.querySelector('#calendar').innerHTML = calendar;
   }
 
-  // カレンダー作成
+  // 実際にカレンダーの表を作る関数
   function createProcess(year, month) {
-    let calendar = "<table><tr class='dayOfWeek'>";
+    let calendar = "<table class='col-md-12 table-light'><tr>";
+
+    // 曜日をヘッダーに表示
     for (let i = 0; i < week.length; i++) {
       calendar += "<th>" + week[i] + "</th>";
     }
     calendar += "</tr>";
 
     let count = 0;
-    let startDayOfWeek = new Date(year, month, 1).getDay();
-    let endDate = new Date(year, month + 1, 0).getDate();
-    let lastMonthEndDate = new Date(year, month, 0).getDate();
-    let row = Math.ceil((startDayOfWeek + endDate) / week.length);
+    let startDayOfWeek = new Date(year, month, 1).getDay(); // その月の1日の曜日
+    let endDate = new Date(year, month + 1, 0).getDate();   // その月の末日
+    let lastMonthEndDate = new Date(year, month, 0).getDate(); // 前月の末日
+    let row = Math.ceil((startDayOfWeek + endDate) / week.length); // 行数
 
+    // 行ごとに日付を埋める
     for (let i = 0; i < row; i++) {
       calendar += "<tr>";
+
       for (let j = 0; j < week.length; j++) {
-        if (i == 0 && j < startDayOfWeek) {
+        if (i === 0 && j < startDayOfWeek) {
+          // 前月の残りを表示
           calendar += "<td class='disabled'>" + (lastMonthEndDate - startDayOfWeek + j + 1) + "</td>";
         } else if (count >= endDate) {
+          // 次月の日付を表示
           count++;
           calendar += "<td class='disabled'>" + (count - endDate) + "</td>";
         } else {
+          // 当月の日付を表示
           count++;
-          if(year == today.getFullYear() && month == today.getMonth() && count == today.getDate()){
-            calendar += "<td class='today'>" + count + "</td>";
+          if (year === today.getFullYear() && month === today.getMonth() && count === today.getDate()) {
+            // 今日の日付にだけクラス today をつける
+            calendar += "<td><div class='today'>" + count + "</div></td>";
           } else {
             calendar += "<td>" + count + "</td>";
           }
         }
       }
+
       calendar += "</tr>";
     }
+
+    calendar += "</table>";
     return calendar;
   }
 });
-
 
 </script>

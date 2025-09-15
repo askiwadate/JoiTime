@@ -237,7 +237,8 @@ svg {
 }
 
 table {
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
+  border-radius: 10px;
 }
 
 caption {
@@ -293,6 +294,13 @@ select {
 
 select {
   word-wrap: normal;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+select:focus{
+  outline: none;
+  box-shadow: none;
 }
 
 button,
@@ -734,6 +742,8 @@ pre code {
   flex-basis: 0;
   flex-grow: 1;
   max-width: 100%;
+  /* 追記 */
+  border: 1px solid #ced4da;
 }
 
 .row-cols-1 > * {
@@ -1787,19 +1797,21 @@ pre code {
 .table {
   width: 100%;
   margin-bottom: 1rem;
-  color: #212529;
+  /* color: #212529; */
+  /* 自分で追記 */
+  border: solid 0.3px #E5E5E5;
 }
 
 .table th,
 .table td {
   padding: 0.75rem;
   vertical-align: top;
-  border-top: 1px solid #dee2e6;
+  /* border-top: 1px solid #dee2e6; */
 }
 
 .table thead th {
   vertical-align: bottom;
-  border-bottom: 2px solid #dee2e6;
+  /* border-bottom: 2px solid #dee2e6; */
 }
 
 .table tbody + tbody {
@@ -1973,6 +1985,17 @@ pre code {
   background-color: rgb(244.1345762712, 176.2256779661, 174.2854237288);
 }
 
+#calendar{
+  height: 90%;
+}
+
+.table-light{
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  height: 100%; /* 高さを親に合わせる */
+}
+
 .table-light,
 .table-light > th,
 .table-light > td {
@@ -1984,6 +2007,40 @@ pre code {
 .table-light thead th,
 .table-light tbody + tbody {
   border-color: rgb(251.36, 251.88, 252.4);
+}
+
+.table-light tr,.table-light td{
+  border: solid 0.3px #E5E5E5;
+}
+
+.today{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  position: absolute; /* td の中で自由に配置 */
+}
+
+.table-light td{
+  text-align: center;
+  vertical-align: text-top;
+  text-align: left;
+  height: calc((100% - 35px) / 6); /* td の高さを行数に合わせる */
+  padding-left: 0.333rem;
+  padding-top: 0.333rem;
+  position: relative; /* .today用の基準 */
+}
+
+.table-light th{
+  height: 35px;
+  text-align: center;
+  background-color: #3E6ED6;
+  color: white;
 }
 
 .table-hover .table-light:hover {
@@ -2715,6 +2772,34 @@ a.btn.disabled,
 fieldset:disabled a.btn {
   pointer-events: none;
 }
+
+.disabled{
+  color: #E5E5E5;
+}
+
+.select-change{
+  border-radius: 8px;
+  width: 12rem;
+  border: solid 1px #E5E5E5;
+  font-weight: 600;
+  text-align: center;
+}
+
+
+.btn-change{
+  border-radius: 8px;
+  width: 6rem;
+  border: solid 1px #E5E5E5;
+  font-weight: 600;
+  background-color: #fff;
+}
+
+.btn-change:focus{
+  color: #3E6ED6;
+  background-color: #8ba3d6;
+  border:solid 1px #3E6ED6;
+}
+
 
 .btn-submit{
   background-color: #3E6ED6; 
@@ -4533,6 +4618,8 @@ input[type=button].btn-block {
   display: block;
   padding: 0.5rem 1rem;
   white-space: nowrap;
+  border-radius: 8px;
+  width: 10rem;
 }
 
 .nav-link:hover,
@@ -4570,8 +4657,16 @@ input[type=button].btn-block {
   border-color: transparent;
 }
 
-.nav .nav-link.active,
+/* .nav .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
+  color: #3E6ED6;
+  background-color: #8ba3d6;
+  border:solid 1px #3E6ED6;
+  border-radius: 8px;
+  width: 10rem;
+} */
+
+.nav-link:focus{
   color: #3E6ED6;
   background-color: #8ba3d6;
   border:solid 1px #3E6ED6;
@@ -6317,14 +6412,18 @@ a.close.disabled {
 
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
+  /* top: 0;
+  left: 0; */
   z-index: 1050;
   display: none;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   overflow: hidden;
   outline: 0;
+  /* 追記 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 
 .modal-dialog {
@@ -6437,7 +6536,7 @@ a.close.disabled {
 .modal-header {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: 1rem 1rem;
   border-bottom: 1px solid #dee2e6;
   border-top-left-radius: calc(0.3rem - 1px);
@@ -6446,7 +6545,7 @@ a.close.disabled {
 
 .modal-header .close {
   padding: 1rem 1rem;
-  margin: -1rem -1rem -1rem auto;
+  margin-top: -1rem;
 }
 
 .modal-title {
