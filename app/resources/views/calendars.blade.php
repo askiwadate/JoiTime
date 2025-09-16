@@ -4,7 +4,7 @@
 
 <section style="background-color: #FFFDF8; min-height: calc(100vh - 57px);">
   <div class="container-fluid">
-    <div class="row">
+    <div class="row w-100">
       <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light collapse">
         <!-- サイドバーコンテンツ -->
         <div class="position-sticky pt-md-5" style="background-color: #FFFDF8; min-height: calc(100vh - 57px); padding: 0rem 0.78rem 0.78rem 0.78rem;">
@@ -16,19 +16,19 @@
               </a>
             </li>
             <li class="nav-item mb-4">
-              <a class="nav-link active d-flex align-items-center" aria-current="page" href="#">
+              <a class="nav-link  active d-flex align-items-center" aria-current="page" href="#" id="panel">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M320 64C302.3 64 288 78.3 288 96L288 99.2C215 114 160 178.6 160 256L160 277.7C160 325.8 143.6 372.5 113.6 410.1L103.8 422.3C98.7 428.6 96 436.4 96 444.5C96 464.1 111.9 480 131.5 480L508.4 480C528 480 543.9 464.1 543.9 444.5C543.9 436.4 541.2 428.6 536.1 422.3L526.3 410.1C496.4 372.5 480 325.8 480 277.7L480 256C480 178.6 425 114 352 99.2L352 96C352 78.3 337.7 64 320 64zM258 528C265.1 555.6 290.2 576 320 576C349.8 576 374.9 555.6 382 528L258 528z"/></svg>
                 <span class="ml-2">新着</span>
               </a>
             </li>
             <li class="nav-item mb-4">
-              <a class="nav-link active d-flex align-items-center" aria-current="page" href="#">
+              <a class="nav-link active d-flex align-items-center" aria-current="page" href="#" id="panel">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M96 192C96 130.1 146.1 80 208 80C269.9 80 320 130.1 320 192C320 253.9 269.9 304 208 304C146.1 304 96 253.9 96 192zM32 528C32 430.8 110.8 352 208 352C305.2 352 384 430.8 384 528L384 534C384 557.2 365.2 576 342 576L74 576C50.8 576 32 557.2 32 534L32 528zM464 128C517 128 560 171 560 224C560 277 517 320 464 320C411 320 368 277 368 224C368 171 411 128 464 128zM464 368C543.5 368 608 432.5 608 512L608 534.4C608 557.4 589.4 576 566.4 576L421.6 576C428.2 563.5 432 549.2 432 534L432 528C432 476.5 414.6 429.1 385.5 391.3C408.1 376.6 435.1 368 464 368z"/></svg>
                 <span class="ml-2">メンバーリスト</span>
               </a>
             </li>
             <li class="nav-item mb-4">
-              <a class="nav-link active d-flex align-items-center" aria-current="page" href="#">
+              <a class="nav-link active d-flex align-items-center" aria-current="page" href="#" id="panel">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M112 128C85.5 128 64 149.5 64 176C64 191.1 71.1 205.3 83.2 214.4L291.2 370.4C308.3 383.2 331.7 383.2 348.8 370.4L556.8 214.4C568.9 205.3 576 191.1 576 176C576 149.5 554.5 128 528 128L112 128zM64 260L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 260L377.6 408.8C343.5 434.4 296.5 434.4 262.4 408.8L64 260z"/></svg>
                 <span class="ml-2">お知らせ</span>
               </a>
@@ -36,18 +36,22 @@
           </ul>
         </div>
       </nav>
+      <div id="overlay-panel">
+        <button id="close-panel" class="btn btn-sm btn-light">×</button>
+        <div id="panel-content">ここに内容が出る</div>
+      </div>
       <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
         <div class="d-flex justify-content-between">
-          <div class="d-flex">
-            <button type="button" style="background-color: transparent; border: none;" id="prev" onclick="prev()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320zM335 199C344.4 189.6 359.6 189.6 368.9 199C378.2 208.4 378.3 223.6 368.9 232.9L281.9 319.9L368.9 406.9C378.3 416.3 378.3 431.5 368.9 440.8C359.5 450.1 344.3 450.2 335 440.8L231 337C221.6 327.6 221.6 312.4 231 303.1L335 199z"/></svg></button>
+          <div id="monthHeader">
+            <button type="submit" style="background-color: transparent; border: none;" id="prev" onclick="prev()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320zM335 199C344.4 189.6 359.6 189.6 368.9 199C378.2 208.4 378.3 223.6 368.9 232.9L281.9 319.9L368.9 406.9C378.3 416.3 378.3 431.5 368.9 440.8C359.5 450.1 344.3 450.2 335 440.8L231 337C221.6 327.6 221.6 312.4 231 303.1L335 199z"/></svg></button>
             <p class="month ml-3 mr-3" id="today-month"></p>
-            <button type="button" style="background-color: transparent; border: none;" id="next" onclick="next()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM305 441C295.6 450.4 280.4 450.4 271.1 441C261.8 431.6 261.7 416.4 271.1 407.1L358.1 320.1L271.1 233.1C261.7 223.7 261.7 208.5 271.1 199.2C280.5 189.9 295.7 189.8 305 199.2L409 303C418.4 312.4 418.4 327.6 409 336.9L305 441z"/></svg></button>
+            <button type="submit" style="background-color: transparent; border: none;" id="next" onclick="next()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM305 441C295.6 450.4 280.4 450.4 271.1 441C261.8 431.6 261.7 416.4 271.1 407.1L358.1 320.1L271.1 233.1C261.7 223.7 261.7 208.5 271.1 199.2C280.5 189.9 295.7 189.8 305 199.2L409 303C418.4 312.4 418.4 327.6 409 336.9L305 441z"/></svg></button>
           </div>
 
-          <div class="d-flex">
-            <button type="button" class="ml-2 mr-1 btn-change">月表示</button>
-            <button type="button" class="ml-2 mr-1 btn-change">週表示</button>
-              <select class="ml-2 mr-3 select-change">
+          <div id="changeBtn">
+            <button type="button" class="ml-2 mr-1 btn-change pt-2 pb-2">月表示</button>
+            <button type="button" class="ml-2 mr-1 btn-change pt-2 pb-2">週表示</button>
+              <select class="ml-2 mr-3 select-change pt-2 pb-2">
                 <option value="" selected>メンバー表示切り替え</option>
                 <option value="">
                 <!-- 共有メンバーを選べるように -->
@@ -70,7 +74,7 @@
   <!-- 検索モーダル -->
   <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
+      <div class="modal-content pre-scrollable">
         <div class="modal-header justify-content-center">
           <h5 class="modal-title" id="searchModalLabel">予定作成</h5>
           <button type="button" class="close position-absolute" style="right: 15px;" data-dismiss="modal" aria-label="閉じる">
@@ -108,7 +112,7 @@
             </div>
           </div>
           <div class="d-flex justify-content-center">
-            <button type="button" class="btn btn-primary">検索</button>
+            <button type="submit" class="btn btn-primary">検索</button>
           </div>
         </form>
         <div class="modal-body pr-5 pl-5">
@@ -191,7 +195,7 @@
           </div>
 
           <div class="form-group">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center" >
               <label for="start-date">開始</label>
               <input type="date" class="form-control" id="start-date" style="width: 10rem;">
               <input type="time" class="form-control" style="width: 10rem;">
@@ -240,7 +244,7 @@
   <!-- カテゴリ登録モーダル -->
   <div class="modal fade" id="categoryAddModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
+      <div class="modal-content pre-scrollable">
         <div class="modal-header justify-content-center">
           <h5 class="modal-title" id="searchModalLabel">カテゴリ登録</h5>
           <button type="button" class="close position-absolute" style="right: 15px;" data-dismiss="modal" aria-label="閉じる">
@@ -261,7 +265,7 @@
             </div>
 
             <div class="d-flex justify-content-center">
-              <button type="button" class="btn btn-primary">追加</button>
+              <button type="submit" class="btn btn-primary">追加</button>
             </div>
           </div>
         </form>
@@ -370,4 +374,34 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const sidebar = document.getElementById("sidebar");
+  const rightPanel = document.getElementById("overlay-panel");
+  const panelContent = document.getElementById("panel-content");
+
+  function setPanelPosition() {
+    const sidebarWidth = sidebar.getBoundingClientRect().width;
+    rightPanel.style.left = sidebarWidth + "px";
+  }
+
+  // 初期配置
+  setPanelPosition();
+
+  // ウィンドウリサイズ時も追従
+  window.addEventListener("resize", setPanelPosition);
+
+  // サイドバー内リンククリックでパネル開く
+  document.querySelectorAll("#sidebar #panel").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      panelContent.innerText = link.textContent.trim() + " を表示中";
+      rightPanel.classList.add("active");
+    });
+  });
+
+  // 閉じるボタン
+  document.getElementById("close-panel").addEventListener("click", () => {
+    rightPanel.classList.remove("active");
+  });
+});
 </script>

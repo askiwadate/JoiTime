@@ -593,7 +593,8 @@ pre code {
 }
 
 .pre-scrollable {
-  max-height: 340px;
+  /* max-height: 340px; */
+  max-height: 615px;
   overflow-y: scroll;
 }
 
@@ -1985,9 +1986,6 @@ pre code {
   background-color: rgb(244.1345762712, 176.2256779661, 174.2854237288);
 }
 
-#calendar{
-  height: 90%;
-}
 
 .table-light{
   width: 100%;
@@ -4591,12 +4589,31 @@ input[type=button].btn-block {
   }
 }
 
+
 #sidebar {
   padding-left: 0;
   padding-right: 0;
-  
 }
 
+#overlay-panel {
+  position: fixed;
+  top: 57px;
+  min-height: calc(100vh - 57px);
+  width: 320px;
+  background: #fff;
+  border-left: 1px solid #ccc;
+  padding: 1rem;
+
+  transform: translateX(100%);
+  transition: transform 0.3s ease, left 0.3s ease;
+  z-index: 2000;
+  visibility: hidden; /* ←追加 */
+}
+
+#overlay-panel.active {
+  transform: translateX(0);
+  visibility: visible; /* ←追加 */
+}
 
 .month{
   font-family: "Montserrat", sans-serif !important;
@@ -4879,7 +4896,7 @@ input[type=button].btn-block {
     flex-basis: auto;
   }
 
-  .navbar-expand-sm .navbar-toggler {
+  .navbar-expand-sm .navbr-toggler {
     display: none;
   }
 }
@@ -11144,3 +11161,67 @@ a.text-dark:focus {
   }
 }
 
+/* 画面幅768px以下で縦並び＆小さく */
+@media (max-width: 768px) {
+  /* 親divが.d-flexだからflex-directionを縦に変更 */
+  .d-flex {
+    flex-direction: column;   /* 横並び → 縦並び */
+  }
+
+  .form-group.d-flex {
+    flex-direction: row !important; /* この親だけ横並び */
+  }
+  /* ボタンを幅100％にして高さ少し小さめ */
+  .btn-change {
+    width: 100%;
+    padding: 0.25rem 0;      
+    font-size: 0.85rem;
+  }
+
+  /* セレクトも幅100％で文字サイズ調整 */
+  .select-change {
+    width: 100%;
+    padding: 0.25rem;
+    font-size: 0.85rem;
+  }
+
+
+  #changeBtn{
+    display: block;
+  }
+
+  #monthHeader {
+    flex-direction: row; /* 横並びにする */
+  }
+
+  #loginHeader-sm{
+    display: flex;
+  }
+
+  #displayUnset{
+    flex-direction: unset;
+  }
+
+  .btn-primary{
+    width: 30%;
+    margin: 0 auto;
+  }
+}
+
+#displayUnset{
+  display: flex;
+}
+
+#monthHeader{
+  display: flex;
+}
+
+#changeBtn {
+  display: flex;
+  flex-direction: row; /* 横並び */
+  align-items: center;
+}
+
+#calendar{
+  height: 80%;
+}
