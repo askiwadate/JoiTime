@@ -598,6 +598,11 @@ pre code {
   overflow-y: scroll;
 }
 
+/* 追記 */
+.scrollable{
+  overflow-y: scroll;
+}
+
 .container,
 .container-fluid,
 .container-xl,
@@ -4599,9 +4604,9 @@ input[type=button].btn-block {
   position: fixed;
   top: 57px;
   min-height: calc(100vh - 57px);
-  width: 320px;
-  background: #fff;
-  border-left: 1px solid #ccc;
+  width: 480px;
+  background: #FFFDF8;
+  border-left: 0.5px solid #e8e8e8;
   padding: 1rem;
 
   transform: translateX(100%);
@@ -5227,6 +5232,7 @@ input[type=button].btn-block {
   border-radius: 0.25rem;
 }
 
+
 .card > hr {
   margin-right: 0;
   margin-left: 0;
@@ -5258,6 +5264,14 @@ input[type=button].btn-block {
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
+}
+
+/* 追記 */
+.card-body:hover{
+  color: #3E6ED6;
+  background-color: #8ba3d6;
+  border:solid 1px #3E6ED6;
+  border-radius: 0.25rem;
 }
 
 .card-title {
@@ -7217,8 +7231,9 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #FFFDF8 !important;
+  background-color: #FFF !important;
 }
+
 
 a.bg-primary:hover,
 a.bg-primary:focus,
@@ -11164,7 +11179,7 @@ a.text-dark:focus {
 /* 画面幅768px以下で縦並び＆小さく */
 @media (max-width: 768px) {
   /* 親divが.d-flexだからflex-directionを縦に変更 */
-  .d-flex {
+  .flex-sm {
     flex-direction: column;   /* 横並び → 縦並び */
   }
 
@@ -11208,7 +11223,7 @@ a.text-dark:focus {
   }
 }
 
-#displayUnset{
+#displayUnset, .flex-sm{
   display: flex;
 }
 
@@ -11223,5 +11238,9 @@ a.text-dark:focus {
 }
 
 #calendar{
-  height: 80%;
+  height: 85%;
+}
+
+#loginHeader-sm{
+  display: flex;
 }
