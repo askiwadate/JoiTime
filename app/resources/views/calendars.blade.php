@@ -47,7 +47,7 @@
         </div>
       </div>
       <!-- カレンダーメイン部分 -->
-      <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+      <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
         <div class="flex-sm justify-content-between">
           <div id="monthHeader">
             <button type="submit" style="background-color: transparent; border: none;" id="prev" onclick="prev()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320zM335 199C344.4 189.6 359.6 189.6 368.9 199C378.2 208.4 378.3 223.6 368.9 232.9L281.9 319.9L368.9 406.9C378.3 416.3 378.3 431.5 368.9 440.8C359.5 450.1 344.3 450.2 335 440.8L231 337C221.6 327.6 221.6 312.4 231 303.1L335 199z"/></svg></button>
@@ -74,7 +74,7 @@
             <i class="fas fa-plus"></i>
           </div>
         </a>
-      </main>
+      </div>
     </div>
   </div>
   <!-- モーダル -->
@@ -382,7 +382,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const panelContent = document.getElementById("panel-content");
+const panelContent = document.getElementById("panel-content");
 const panelCards = document.getElementById("panel-cards");
 const rightPanel = document.getElementById("overlay-panel");
 

@@ -4594,7 +4594,7 @@ input[type=button].btn-block {
   }
 }
 
-
+/* 追記 */
 #sidebar {
   padding-left: 0;
   padding-right: 0;
@@ -4627,6 +4627,7 @@ input[type=button].btn-block {
   font-style: italic;
   margin-bottom: 0;
 }
+/* ここまで */
 
 .nav {
   display: flex;
@@ -4641,7 +4642,7 @@ input[type=button].btn-block {
   padding: 0.5rem 1rem;
   white-space: nowrap;
   border-radius: 8px;
-  width: 10rem;
+  width: 11rem;
 }
 
 .nav-link:hover,
@@ -4688,6 +4689,7 @@ input[type=button].btn-block {
   width: 10rem;
 } */
 
+/* 追記 */
 .nav-link:focus{
   color: #3E6ED6;
   background-color: #8ba3d6;
@@ -4695,6 +4697,7 @@ input[type=button].btn-block {
   border-radius: 8px;
   width: 10rem;
 }
+/* ここまで */
 
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
@@ -5267,7 +5270,13 @@ input[type=button].btn-block {
 }
 
 /* 追記 */
-.card-body:hover{
+.card-body-hover{
+    flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+}
+
+.card-body-hover:hover{
   color: #3E6ED6;
   background-color: #8ba3d6;
   border:solid 1px #3E6ED6;
