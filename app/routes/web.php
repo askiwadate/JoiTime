@@ -1,7 +1,8 @@
 <?php
 
+use App\Calendar;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\CalendarController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +14,4 @@ use App\Http\Controllers\DisplayController;
 |
 */
 
-Route::get('/',[DisplayController::class,'index']);
+Route::get('/',[CalendarController::class,'index']);

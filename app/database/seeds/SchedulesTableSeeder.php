@@ -16,6 +16,7 @@ class SchedulesTableSeeder extends Seeder
         //
 
         DB::table('schedules')->insert([
+            'calendar_id' => 1,
             'title' => '美容院',
             'start_date' => '2025-09-21',
             'start_time' => '10:00:00',

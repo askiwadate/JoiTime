@@ -73,11 +73,13 @@
     						</tr>
     						<tr>
       						<th scope="row"><button class="rounded-circle img-nonimg ml-3" data-container="body" data-toggle="popover" data-placement="bottom"><img src="" alt="" class=""></button></th>
+                  <td>しんのすけ</td>
       						<td>buriburi@gmail.com</td>
 									<td>2025.08.21</td>
     						</tr>
     						<tr>
       						<th scope="row"><button class="rounded-circle img-nonimg ml-3" data-container="body" data-toggle="popover" data-placement="bottom"><img src="" alt="" class=""></button></th>
+                  <td>ねね</td>
       						<td>usachan@gmail.com</td>
 									<td>2025.08.21</td>
     						</tr>
