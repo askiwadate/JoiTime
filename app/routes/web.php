@@ -1,6 +1,5 @@
 <?php
 
-use App\Calendar;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CalendarController;
 /*
@@ -14,4 +13,4 @@ use App\Http\Controllers\CalendarController;
 |
 */
 
-Route::get('/',[CalendarController::class,'index']);
+Route::get('/calendars/{calendar_id}',[CalendarController::class,'show'])->name('calendars.show');
