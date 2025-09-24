@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Calendar;
+use App\Schedule;
 use Illuminate\Http\Request;
 
 class CalendarController extends Controller
@@ -34,5 +35,26 @@ class CalendarController extends Controller
         $calendar = Calendar::findOrFail($calendar_id);
 
         return view('calendars',compact('calendar','myCalendars','joinedCalendars'));
+    }
+
+    public function store(Request $request){
+        $validated = $request->validate([
+            'calendar_id' => 'required|exists:calendars,id',
+            'title' => 'required|string|max:50',
+            'start_date' => 'required|date',
+            'start_time' => 'nullable|date_format:H:i',
+            'end_date' => 'required|date',
+            'end_time' => 'nullable|date_format:H:i',
+            'category_id' =>'required|exists:schedule_categories,id',
+            'place_name' => 'nullable|string|max:255',
+            'comment' => 'nullable|string|max:255', 
+        ]);
+
+        // creator_idはログインユーザーに置き換える
+        $validated['creator_id'] = 1;
+
+        $schedule = Schedule::create($validated);
+        // JSONで返す
+        return response()->json($schedule);
     }
 }

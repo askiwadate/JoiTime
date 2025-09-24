@@ -13,4 +13,10 @@ use App\Http\Controllers\CalendarController;
 |
 */
 
+
+// カレンダー画面表示
 Route::get('/calendars/{calendar_id}',[CalendarController::class,'show'])->name('calendars.show');
+// 予定作成（モーダルから非同期POST)
+Route::post('/calendars',[CalendarController::class,'store'])->name('schedules.store');
+// 登録済みの予定取得（カレンダーに反映用）
+Route::get('/calendars',[CalendarController::class,'fetch'])->name('schedules.fetch');
