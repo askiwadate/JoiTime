@@ -41,7 +41,7 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 @foreach($myCalendars as $myCal)
                 <a class="dropdown-item" href="{{ route('calendars.show',['calendar_id' => $myCal->id]) }}">
-                  {{ $calendar->name}}
+                  {{ $myCal->name}}
                 </a>
                 @endforeach
               </div>
@@ -81,12 +81,13 @@
             <button type="submit" style="background-color: transparent; border: none;" id="prev" onclick="prev()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320zM335 199C344.4 189.6 359.6 189.6 368.9 199C378.2 208.4 378.3 223.6 368.9 232.9L281.9 319.9L368.9 406.9C378.3 416.3 378.3 431.5 368.9 440.8C359.5 450.1 344.3 450.2 335 440.8L231 337C221.6 327.6 221.6 312.4 231 303.1L335 199z"/></svg></button>
             <p class="month ml-3 mr-3" id="today-month"></p>
             <button type="submit" style="background-color: transparent; border: none;" id="next" onclick="next()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM305 441C295.6 450.4 280.4 450.4 271.1 441C261.8 431.6 261.7 416.4 271.1 407.1L358.1 320.1L271.1 233.1C261.7 223.7 261.7 208.5 271.1 199.2C280.5 189.9 295.7 189.8 305 199.2L409 303C418.4 312.4 418.4 327.6 409 336.9L305 441z"/></svg></button>
+
+            <!-- 表示中のカレンダー -->
+            <div class="d-flex align-items-center">
+              <h4 class="mb-0">{{ $calendar->name }}</h4>
+            </div>
           </div>
 
-          <!-- 表示中のカレンダー -->
-          <div class="d-flex align-items-center">
-            <h4 class="mb-0">{{ $calendar->name }}</h4>
-          </div>
 
           <div id="changeBtn">
             <button type="button" class="ml-2 mr-1 btn-change pt-2 pb-2">月表示</button>
@@ -144,8 +145,8 @@
             </div>
 
             <div class="form-group">
-              <label for="category">メンバー</label>
-                <select name="category" class="form-control">
+              <label for="member">メンバー</label>
+                <select name="member" class="form-control">
                   <option value="">たろう</option>
                   <option value="">みさき</option>
                 </select>
@@ -226,54 +227,61 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form  method="POST">
+      <form id="scheduleForm" action="{{ route('schedules.store', ['calendar' => $calendar->id]) }}" method="POST">
         @csrf
+        <input type="hidden" name="calendar_id" value="{{ $calendar->id }}">
         <div class="modal-body pr-5 pl-5">
           <div class="form-group">
             <label for="category">タイトル</label>
-            <input type="text" class="form-control">
+            <input type="text" name="title" class="form-control" required>
           </div>
 
           <div class="form-group">
             <div class="d-flex justify-content-between align-items-center" >
               <label for="start-date">開始</label>
-              <input type="date" class="form-control" id="start-date" style="width: 10rem;">
-              <input type="time" class="form-control" style="width: 10rem;">
+              <input type="date" class="form-control" name="start_date" id="start-date" style="width: 10rem;">
+              <input type="time" class="form-control" name="start_time" style="width: 10rem;">
             </div>
             <div class="d-flex justify-content-between align-items-center mt-2">
               <label for="end-date">終了</label>
-              <input type="date" class="form-control" id="end-date" style="width: 10rem;">
-              <input type="time" class="form-control" style="width: 10rem;">
+              <input type="date" class="form-control" name="end_date" id="end-date" style="width: 10rem;">
+              <input type="time" class="form-control" name="end_time" style="width: 10rem;">
             </div>
 
             <div class="d-flex align-items-center mt-2 mb-3">
-              <input type="checkbox" class="mr-2" aria-label="Checkbox for following text input" id="fullday">
+              <input type="checkbox" class="mr-2" aria-label="Checkbox for following text input" id="fullday" name="all_day" value="1">
               <label for="fullday" class="mb-0">終日</label>
             </div>
           </div>
 
           <div class="form-group">
             <label for="category">カテゴリ</label>
-            <select name="category" class="form-control">
-              <option value="">⛰️登山</option>
-              <option value="">😍デート</option>
+            <select name="category_id" class="form-control">
+            <option>選択してください</option>
+            @foreach($categories as $cat)
+            <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
+            @endforeach
             </select>
           </div>
 
           <div class="form-group">
             <label for="place">場所</label>
             <!-- ここでAPI連携 -->
-            <input type="text" id="place-input" class="form-control">
+            <input type="text" id="place-input" name="place_name" class="form-control">
+            <!-- 住所・緯度・経度を保持する　hidden -->
+            <input type="hidden" id="place-address" name="place_address">
+            <input type="hidden" id="latitude" name="latitude">
+            <input type="hidden" id="longitude" name="longitude">
           </div>
 
           <div class="form-group">
             <label for="comment">コメント／メモ</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"></textarea>
           </div>
         </div> <!-- modal-body end -->
 
         <div class="d-flex justify-content-center mb-3">
-          <button type="submit" class="btn btn-primary">投稿</button>
+          <button type="submit" class="btn btn-primary" id="add">投稿</button>
         </div>
       </form>
     </div>
@@ -327,170 +335,157 @@
 
 @endsection
 @section('scripts')
+<!-- API連携用 -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwrenq6wdGBI45rmTOtQ3iXEoCDDphvmU&libraries=places&callback=initAutocomplete" async defer></script>
 <script>
+function initAutocomplete() {
+    // DOMContentLoaded 待機
+    document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('place-input');
+        if (!input) return; // input がない場合は何もしない
 
+        const options = {
+            types: ['geocode'], // 住所のみ
+            componentRestrictions: { country: 'jp' } // 日本限定
+        };
+
+        const autocomplete = new google.maps.places.Autocomplete(input, options);
+
+        autocomplete.addListener('place_changed', function() {
+            const place = autocomplete.getPlace();
+            document.getElementById('place-address').value = place.formatted_address || '';
+            document.getElementById('latitude').value = place.geometry?.location.lat() || '';
+            document.getElementById('longitude').value = place.geometry?.location.lng() || '';
+        });
+    });
+}
+
+// カレンダーやサイドパネルの既存コードはそのまま
 document.addEventListener('DOMContentLoaded', function() {
-  // 曜日の配列（日曜はじまり）
-  const week = ["日", "月", "火", "水", "木", "金", "土"];
+    // --- カレンダー処理 ---
+    const week = ["日","月","火","水","木","金","土"];
+    const today = new Date();
+    let showDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    let schedules = [];
 
-  // 今日の日付を取得
-  const today = new Date();
+    const calendarId = document.querySelector('#scheduleForm input[name="calendar_id"]').value;
+    fetch(`/calendars/${calendarId}/schedules`)
+        .then(res => res.json())
+        .then(data => {
+            schedules = data;
+            showProcess(showDate);
+        });
 
-  // 表示中のカレンダーの基準日（最初は当月の1日をセット）
-  let showDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    document.getElementById('prev').addEventListener('click', () => { showDate.setMonth(showDate.getMonth()-1); showProcess(showDate); });
+    document.getElementById('next').addEventListener('click', () => { showDate.setMonth(showDate.getMonth()+1); showProcess(showDate); });
 
-  // 初期表示
-  showProcess(showDate);
+    const form = document.getElementById('scheduleForm');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
 
-  // === イベントリスナーでボタンに動きをつける ===
-  document.getElementById('prev').addEventListener('click', function() {
-    showDate.setMonth(showDate.getMonth() - 1); // 月を1つ戻す
-    showProcess(showDate);
-  });
+        fetch(form.action, {
+            method: 'POST',
+            headers: {'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value },
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            schedules.push(data);
+            showProcess(showDate);
+            $('#postModal').modal('hide');
+            $('.modal-backdrop').remove();
+            form.reset();
+        })
+        .catch(err => console.error(err));
+    });
 
-  document.getElementById('next').addEventListener('click', function() {
-    showDate.setMonth(showDate.getMonth() + 1); // 月を1つ進める
-    showProcess(showDate);
-  });
-
-  // カレンダーを表示する関数
-  function showProcess(date) {
-    let year = date.getFullYear();
-    let month = date.getMonth(); // 0〜11で返るので +1 が必要
-
-    // 年と月を表示（スペースに &nbsp; を使う）
-    document.querySelector('#today-month').innerHTML = year + "年&nbsp;" + (month + 1) + "月";
-
-    // カレンダーを作成
-    let calendar = createProcess(year, month);
-    document.querySelector('#calendar').innerHTML = calendar;
-  }
-
-  // 実際にカレンダーの表を作る関数
-  function createProcess(year, month) {
-    let calendar = "<table class='col-md-12 table-light'><tr>";
-
-    // 曜日をヘッダーに表示
-    for (let i = 0; i < week.length; i++) {
-      calendar += "<th>" + week[i] + "</th>";
+    function showProcess(date) {
+        document.querySelector('#today-month').innerHTML = `${date.getFullYear()}年&nbsp;${date.getMonth()+1}月`;
+        document.querySelector('#calendar').innerHTML = createProcess(date.getFullYear(), date.getMonth());
     }
-    calendar += "</tr>";
 
-    let count = 0;
-    let startDayOfWeek = new Date(year, month, 1).getDay(); // その月の1日の曜日
-    let endDate = new Date(year, month + 1, 0).getDate();   // その月の末日
-    let lastMonthEndDate = new Date(year, month, 0).getDate(); // 前月の末日
-    let row = Math.ceil((startDayOfWeek + endDate) / week.length); // 行数
+    function createProcess(year, month) {
+        let calendar = "<table class='table-light'><tr>";
+        week.forEach(d => calendar += `<th>${d}</th>`); calendar += "</tr>";
 
-    // 行ごとに日付を埋める
-    for (let i = 0; i < row; i++) {
-      calendar += "<tr>";
+        const startDay = new Date(year, month, 1).getDay();
+        const endDate = new Date(year, month+1, 0).getDate();
+        const lastMonthEnd = new Date(year, month, 0).getDate();
+        const row = Math.ceil((startDay + endDate)/7);
 
-      for (let j = 0; j < week.length; j++) {
-        if (i === 0 && j < startDayOfWeek) {
-          // 前月の残りを表示
-          calendar += "<td class='disabled'>" + (lastMonthEndDate - startDayOfWeek + j + 1) + "</td>";
-        } else if (count >= endDate) {
-          // 次月の日付を表示
-          count++;
-          calendar += "<td class='disabled'>" + (count - endDate) + "</td>";
-        } else {
-          // 当月の日付を表示
-          count++;
-          if (year === today.getFullYear() && month === today.getMonth() && count === today.getDate()) {
-            // 今日の日付にだけクラス today をつける
-            calendar += "<td><div class='today'>" + count + "</div></td>";
-          } else {
-            calendar += "<td>" + count + "</td>";
-          }
+        let count = 0;
+        for(let i=0;i<row;i++){
+            calendar += "<tr>";
+            for(let j=0;j<7;j++){
+                if(i===0 && j<startDay){ calendar += `<td class='disabled'>${lastMonthEnd-startDay+j+1}</td>`; }
+                else if(count>=endDate){ count++; calendar += `<td class='disabled'>${count-endDate}</td>`; }
+                else{
+                    count++;
+                    let cell = `<div>${count}</div>`;
+                    schedules.forEach(sch => {
+                        const start = new Date(sch.start_date);
+                        if(start.getFullYear()===year && start.getMonth()===month && start.getDate()===count){
+                            cell += `<div class="schedule-item">
+                                <img src="/images/category/${sch.category_id}.png" width="16" height="16">
+                                <span>${sch.title}</span>
+                                <img src="/images/user/${sch.creator_id}.png" width="16" height="16">
+                            </div>`;
+                        }
+                    });
+                    calendar += `<td>${cell}</td>`;
+                }
+            }
+            calendar += "</tr>";
         }
-      }
-
-      calendar += "</tr>";
+        calendar += "</table>";
+        return calendar;
     }
 
-    calendar += "</table>";
-    return calendar;
-  }
-});
+    // --- サイドパネル処理 ---
+    const panelContent = document.getElementById("panel-content");
+    const panelCards = document.getElementById("panel-cards");
+    const rightPanel = document.getElementById("overlay-panel");
 
-document.addEventListener("DOMContentLoaded", () => {
-const panelContent = document.getElementById("panel-content");
-const panelCards = document.getElementById("panel-cards");
-const rightPanel = document.getElementById("overlay-panel");
-
-  function setPanelPosition() {
-    const sidebarWidth = sidebar.getBoundingClientRect().width;
-    rightPanel.style.left = sidebarWidth + "px";
-  }
-
-  // 初期配置
-  setPanelPosition();
-
-  // ウィンドウリサイズ時も追従
-  window.addEventListener("resize", setPanelPosition);
-
-  ["panel-new", "panel-member", "panel-info"].forEach(id => {
-  const link = document.getElementById(id);
-  if (!link) return;
-
-  link.addEventListener("click", e => {
-    e.preventDefault();
-    panelCards.innerHTML = ""; // クリックするたびに中身をリセット
-
-    if (id === "panel-new") {
-      panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">新着</h5>`;
-      // 仮の新着データ
-      const posts = [
-        { title: "予定1", content: "富士山登山" },
-        { title: "予定2", content: "飲み会" }
-      ];
-      posts.forEach(post => {
-        panelCards.innerHTML += `
-          <div class="card m-2">
-            <div class="card-body">
-              <h5 class="card-title">${post.title}</h5>
-              <p class="card-text">${post.content}</p>
-            </div>
-          </div>`;
-      });
-    } else if (id === "panel-member") {
-      panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">メンバーリスト</h5>`;
-      panelCards.innerHTML = `
-        <div class="card m-2">
-          <div class="card-body">
-            <input type="text" class="form-control mb-2" placeholder="メンバー検索">
-            <ul>
-              <li>ユーザーA</li>
-              <li>ユーザーB</li>
-            </ul>
-            <button class="btn btn-sm btn-primary mt-2">招待リンクを発行</button>
-          </div>
-        </div>`;
-    } else if (id === "panel-info") {
-      panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">お知らせ</h5>`;
-      const infos = [
-        { title: "メンテナンス", content: "9/30 23:00からシステムメンテナンスがあります。" },
-        { title: "新機能", content: "新しいカレンダー機能が追加されました！" }
-      ];
-      infos.forEach(info => {
-        panelCards.innerHTML += `
-          <div class="card m-2">
-            <div class="card-body">
-              <h5 class="card-title">${info.title}</h5>
-              <p class="card-text">${info.content}</p>
-            </div>
-          </div>`;
-      });
+    function setPanelPosition() {
+        const sidebar = document.getElementById("sidebar");
+        if (!sidebar) return;
+        const sidebarWidth = sidebar.getBoundingClientRect().width;
+        rightPanel.style.left = sidebarWidth + "px";
     }
+    setPanelPosition();
+    window.addEventListener("resize", setPanelPosition);
 
-    rightPanel.classList.add("active","scrollable");
-  });
-});
+    ["panel-new", "panel-member", "panel-info"].forEach(id => {
+        const link = document.getElementById(id);
+        if (!link) return;
 
-  // 閉じるボタン
-  document.getElementById("close-panel").addEventListener("click", () => {
-    rightPanel.classList.remove("active");
-  });
+        link.addEventListener("click", e => {
+            e.preventDefault();
+            panelCards.innerHTML = "";
+            if (id === "panel-new") {
+                panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">新着</h5>`;
+                const posts = [{ title: "予定1", content: "富士山登山" }, { title: "予定2", content: "飲み会" }];
+                posts.forEach(post => {
+                    panelCards.innerHTML += `<div class="card m-2"><div class="card-body"><h5 class="card-title">${post.title}</h5><p class="card-text">${post.content}</p></div></div>`;
+                });
+            } else if (id === "panel-member") {
+                panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">メンバーリスト</h5>`;
+                panelCards.innerHTML = `<div class="card m-2"><div class="card-body"><input type="text" class="form-control mb-2" placeholder="メンバー検索"><ul><li>ユーザーA</li><li>ユーザーB</li></ul><button class="btn btn-sm btn-primary mt-2">招待リンクを発行</button></div></div>`;
+            } else if (id === "panel-info") {
+                panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">お知らせ</h5>`;
+                const infos = [{ title: "メンテナンス", content: "9/30 23:00からシステムメンテナンスがあります。" }, { title: "新機能", content: "新しいカレンダー機能が追加されました！" }];
+                infos.forEach(info => {
+                    panelCards.innerHTML += `<div class="card m-2"><div class="card-body"><h5 class="card-title">${info.title}</h5><p class="card-text">${info.content}</p></div></div>`;
+                });
+            }
+            rightPanel.classList.add("active","scrollable");
+        });
+    });
+
+    document.getElementById("close-panel").addEventListener("click", () => {
+        rightPanel.classList.remove("active");
+    });
 });
 </script>
+@endsection

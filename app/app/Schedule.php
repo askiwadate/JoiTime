@@ -19,4 +19,7 @@ class Schedule extends Model
         return $this->belongsTo(Calendar::class,'caledar_id','id');
     }
 
+    public function creator(){
+        return $this->belongsTo(User::class,'creator_id');
+    }
 }

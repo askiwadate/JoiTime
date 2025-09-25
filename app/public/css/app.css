@@ -11185,6 +11185,8 @@ a.text-dark:focus {
   }
 }
 
+/* 自分で追記 */
+.pac-container { z-index: 2000 !important; }
 /* 画面幅768px以下で縦並び＆小さく */
 @media (max-width: 768px) {
   /* 親divが.d-flexだからflex-directionを縦に変更 */
