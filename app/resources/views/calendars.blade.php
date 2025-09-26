@@ -267,9 +267,8 @@
           <div class="form-group">
             <label for="place">場所</label>
             <!-- ここでAPI連携 -->
-            <input type="text" id="place-input" name="place_name" class="form-control">
-            <!-- 住所・緯度・経度を保持する　hidden -->
-            <input type="hidden" id="place-address" name="place_address">
+            <input id="place-input" type="text" class="form-control" placeholder="場所を入力">
+            <input type="hidden" id="place-address" name="address">
             <input type="hidden" id="latitude" name="latitude">
             <input type="hidden" id="longitude" name="longitude">
           </div>
@@ -335,34 +334,44 @@
 
 @endsection
 @section('scripts')
-<!-- API連携用 -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwrenq6wdGBI45rmTOtQ3iXEoCDDphvmU&libraries=places&callback=initAutocomplete" async defer></script>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn3dwzZ7uXEKObEJXwPV2G4MU4XX6IHJQ&libraries=places" async defer></script>
+
 <script>
+let autocomplete;
+
 function initAutocomplete() {
-    // DOMContentLoaded 待機
-    document.addEventListener('DOMContentLoaded', function() {
-        const input = document.getElementById('place-input');
-        if (!input) return; // input がない場合は何もしない
+  const input = document.getElementById("place-input");
+  if (!input) return;
 
-        const options = {
-            types: ['geocode'], // 住所のみ
-            componentRestrictions: { country: 'jp' } // 日本限定
-        };
+  autocomplete = new google.maps.places.Autocomplete(input, {
+    types: ["geocode"],
+    componentRestrictions: { country: "jp" }
+  });
 
-        const autocomplete = new google.maps.places.Autocomplete(input, options);
-
-        autocomplete.addListener('place_changed', function() {
-            const place = autocomplete.getPlace();
-            document.getElementById('place-address').value = place.formatted_address || '';
-            document.getElementById('latitude').value = place.geometry?.location.lat() || '';
-            document.getElementById('longitude').value = place.geometry?.location.lng() || '';
-        });
-    });
+  autocomplete.addListener("place_changed", () => {
+    const place = autocomplete.getPlace();
+    document.getElementById("place-address").value = place.formatted_address || "";
+    document.getElementById("latitude").value = place.geometry?.location.lat() || "";
+    document.getElementById("longitude").value = place.geometry?.location.lng() || "";
+  });
 }
 
-// カレンダーやサイドパネルの既存コードはそのまま
-document.addEventListener('DOMContentLoaded', function() {
-    // --- カレンダー処理 ---
+// モーダルが開かれたときに初期化（DOMが確実に存在してから）
+document.addEventListener("DOMContentLoaded", () => {
+  $("#postModal").on("shown.bs.modal", function () {
+    if (!autocomplete) {
+      initAutocomplete();
+    }
+  });
+});
+</script>
+
+<script>
+  // -------------------------------
+  // ここから既存カレンダーやモーダルの JS
+  // -------------------------------
+  document.addEventListener('DOMContentLoaded', function() {
     const week = ["日","月","火","水","木","金","土"];
     const today = new Date();
     let showDate = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -383,7 +392,6 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         const formData = new FormData(form);
-
         fetch(form.action, {
             method: 'POST',
             headers: {'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value },
@@ -408,12 +416,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function createProcess(year, month) {
         let calendar = "<table class='table-light'><tr>";
         week.forEach(d => calendar += `<th>${d}</th>`); calendar += "</tr>";
-
         const startDay = new Date(year, month, 1).getDay();
         const endDate = new Date(year, month+1, 0).getDate();
         const lastMonthEnd = new Date(year, month, 0).getDate();
         const row = Math.ceil((startDay + endDate)/7);
-
         let count = 0;
         for(let i=0;i<row;i++){
             calendar += "<tr>";
@@ -441,51 +447,52 @@ document.addEventListener('DOMContentLoaded', function() {
         calendar += "</table>";
         return calendar;
     }
+  });
 
-    // --- サイドパネル処理 ---
+  // -------------------------------
+  // サイドパネル JS（既存のまま）
+  // -------------------------------
+  document.addEventListener("DOMContentLoaded", () => {
     const panelContent = document.getElementById("panel-content");
     const panelCards = document.getElementById("panel-cards");
     const rightPanel = document.getElementById("overlay-panel");
 
     function setPanelPosition() {
-        const sidebar = document.getElementById("sidebar");
-        if (!sidebar) return;
-        const sidebarWidth = sidebar.getBoundingClientRect().width;
-        rightPanel.style.left = sidebarWidth + "px";
+      const sidebarWidth = sidebar.getBoundingClientRect().width;
+      rightPanel.style.left = sidebarWidth + "px";
     }
     setPanelPosition();
     window.addEventListener("resize", setPanelPosition);
 
     ["panel-new", "panel-member", "panel-info"].forEach(id => {
-        const link = document.getElementById(id);
-        if (!link) return;
-
-        link.addEventListener("click", e => {
-            e.preventDefault();
-            panelCards.innerHTML = "";
-            if (id === "panel-new") {
-                panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">新着</h5>`;
-                const posts = [{ title: "予定1", content: "富士山登山" }, { title: "予定2", content: "飲み会" }];
-                posts.forEach(post => {
-                    panelCards.innerHTML += `<div class="card m-2"><div class="card-body"><h5 class="card-title">${post.title}</h5><p class="card-text">${post.content}</p></div></div>`;
-                });
-            } else if (id === "panel-member") {
-                panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">メンバーリスト</h5>`;
-                panelCards.innerHTML = `<div class="card m-2"><div class="card-body"><input type="text" class="form-control mb-2" placeholder="メンバー検索"><ul><li>ユーザーA</li><li>ユーザーB</li></ul><button class="btn btn-sm btn-primary mt-2">招待リンクを発行</button></div></div>`;
-            } else if (id === "panel-info") {
-                panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">お知らせ</h5>`;
-                const infos = [{ title: "メンテナンス", content: "9/30 23:00からシステムメンテナンスがあります。" }, { title: "新機能", content: "新しいカレンダー機能が追加されました！" }];
-                infos.forEach(info => {
-                    panelCards.innerHTML += `<div class="card m-2"><div class="card-body"><h5 class="card-title">${info.title}</h5><p class="card-text">${info.content}</p></div></div>`;
-                });
-            }
-            rightPanel.classList.add("active","scrollable");
-        });
+      const link = document.getElementById(id);
+      if (!link) return;
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        panelCards.innerHTML = "";
+        if (id === "panel-new") {
+          panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">新着</h5>`;
+          const posts = [{ title: "予定1", content: "富士山登山" }, { title: "予定2", content: "飲み会" }];
+          posts.forEach(post => {
+            panelCards.innerHTML += `<div class="card m-2"><div class="card-body"><h5 class="card-title">${post.title}</h5><p class="card-text">${post.content}</p></div></div>`;
+          });
+        } else if (id === "panel-member") {
+          panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">メンバーリスト</h5>`;
+          panelCards.innerHTML = `<div class="card m-2"><div class="card-body"><input type="text" class="form-control mb-2" placeholder="メンバー検索"><ul><li>ユーザーA</li><li>ユーザーB</li></ul><button class="btn btn-sm btn-primary mt-2">招待リンクを発行</button></div></div>`;
+        } else if (id === "panel-info") {
+          panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">お知らせ</h5>`;
+          const infos = [{ title: "メンテナンス", content: "9/30 23:00からシステムメンテナンスがあります。" }, { title: "新機能", content: "新しいカレンダー機能が追加されました！" }];
+          infos.forEach(info => {
+            panelCards.innerHTML += `<div class="card m-2"><div class="card-body"><h5 class="card-title">${info.title}</h5><p class="card-text">${info.content}</p></div></div>`;
+          });
+        }
+        rightPanel.classList.add("active","scrollable");
+      });
     });
 
     document.getElementById("close-panel").addEventListener("click", () => {
-        rightPanel.classList.remove("active");
+      rightPanel.classList.remove("active");
     });
-});
+  });
 </script>
 @endsection
