@@ -73,4 +73,8 @@ public function store(Request $request, Calendar $calendar)
     return response()->json($schedule->load('category', 'creator'));
 }
 
+public function schedulesJson()
+{
+    return Schedule::all(); // FullCalendar用JSON
+}
 }

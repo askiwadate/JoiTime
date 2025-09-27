@@ -219,70 +219,70 @@
 
   <!-- 投稿モーダル -->
   <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header justify-content-center">
-        <h5 class="modal-title" id="searchModalLabel">予定作成</h5>
-        <button type="button" class="close position-absolute" style="right: 15px;" data-dismiss="modal" aria-label="閉じる">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form id="scheduleForm" action="{{ route('schedules.store', ['calendar' => $calendar->id]) }}" method="POST">
-        @csrf
-        <input type="hidden" name="calendar_id" value="{{ $calendar->id }}">
-        <div class="modal-body pr-5 pl-5">
-          <div class="form-group">
-            <label for="category">タイトル</label>
-            <input type="text" name="title" class="form-control" required>
-          </div>
-
-          <div class="form-group">
-            <div class="d-flex justify-content-between align-items-center" >
-              <label for="start-date">開始</label>
-              <input type="date" class="form-control" name="start_date" id="start-date" style="width: 10rem;">
-              <input type="time" class="form-control" name="start_time" style="width: 10rem;">
-            </div>
-            <div class="d-flex justify-content-between align-items-center mt-2">
-              <label for="end-date">終了</label>
-              <input type="date" class="form-control" name="end_date" id="end-date" style="width: 10rem;">
-              <input type="time" class="form-control" name="end_time" style="width: 10rem;">
-            </div>
-
-            <div class="d-flex align-items-center mt-2 mb-3">
-              <input type="checkbox" class="mr-2" aria-label="Checkbox for following text input" id="fullday" name="all_day" value="1">
-              <label for="fullday" class="mb-0">終日</label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="category">カテゴリ</label>
-            <select name="category_id" class="form-control">
-            <option>選択してください</option>
-            @foreach($categories as $cat)
-            <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
-            @endforeach
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="place">場所</label>
-            <!-- ここでAPI連携 -->
-            <input id="place-input" type="text" class="form-control" placeholder="場所を入力">
-            <input type="hidden" id="place-address" name="address">
-            <input type="hidden" id="latitude" name="latitude">
-            <input type="hidden" id="longitude" name="longitude">
-          </div>
-
-          <div class="form-group">
-            <label for="comment">コメント／メモ</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"></textarea>
-          </div>
-        </div> <!-- modal-body end -->
-
-        <div class="d-flex justify-content-center mb-3">
-          <button type="submit" class="btn btn-primary" id="add">投稿</button>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center">
+          <h5 class="modal-title" id="searchModalLabel">予定作成</h5>
+          <button type="button" class="close position-absolute" style="right: 15px;" data-dismiss="modal" aria-label="閉じる">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </form>
+        <form id="scheduleForm" action="{{ route('schedules.store', ['calendar' => $calendar->id]) }}" method="POST">
+          @csrf
+          <input type="hidden" name="calendar_id" value="{{ $calendar->id }}">
+          <div class="modal-body pr-5 pl-5">
+            <div class="form-group">
+              <label for="category">タイトル</label>
+              <input type="text" name="title" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <div class="d-flex justify-content-between align-items-center" >
+                <label for="start-date">開始</label>
+                <input type="date" class="form-control" name="start_date" id="start-date" style="width: 10rem;">
+                <input type="time" class="form-control" name="start_time" style="width: 10rem;">
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <label for="end-date">終了</label>
+                <input type="date" class="form-control" name="end_date" id="end-date" style="width: 10rem;">
+                <input type="time" class="form-control" name="end_time" style="width: 10rem;">
+              </div>
+
+              <div class="d-flex align-items-center mt-2 mb-3">
+                <input type="checkbox" class="mr-2" aria-label="Checkbox for following text input" id="fullday" name="all_day" value="1">
+                <label for="fullday" class="mb-0">終日</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="category">カテゴリ</label>
+              <select name="category_id" class="form-control">
+                <option>選択してください</option>
+                @foreach($categories as $cat)
+                <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
+                @endforeach
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="place">場所</label>
+              <!-- ここでAPI連携 -->
+              <input id="placeInput" class="form-control" placeholder="場所を入力" type="text">
+              <input type="hidden" id="latitude">
+              <input type="hidden" id="longitude">
+            </div>
+
+            <div class="form-group">
+              <label for="comment">コメント／メモ</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"></textarea>
+            </div>
+          </div> <!-- modal-body end -->
+
+          <div class="d-flex justify-content-center mb-3">
+            <button type="submit" class="btn btn-primary" id="add">投稿</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
@@ -334,36 +334,23 @@
 
 @endsection
 @section('scripts')
-<script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn3dwzZ7uXEKObEJXwPV2G4MU4XX6IHJQ&libraries=places" async defer></script>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn3dwzZ7uXEKObEJXwPV2G4MU4XX6IHJQ&libraries=places"></script>
 <script>
-let autocomplete;
-
 function initAutocomplete() {
-  const input = document.getElementById("place-input");
-  if (!input) return;
+  const input = document.getElementById('placeInput');
+  const autocomplete = new google.maps.places.Autocomplete(input);
 
-  autocomplete = new google.maps.places.Autocomplete(input, {
-    types: ["geocode"],
-    componentRestrictions: { country: "jp" }
-  });
-
-  autocomplete.addListener("place_changed", () => {
+  autocomplete.addListener('place_changed', () => {
     const place = autocomplete.getPlace();
-    document.getElementById("place-address").value = place.formatted_address || "";
-    document.getElementById("latitude").value = place.geometry?.location.lat() || "";
-    document.getElementById("longitude").value = place.geometry?.location.lng() || "";
+    if (!place.geometry) return; // 候補外選択時
+    document.getElementById('latitude').value = place.geometry.location.lat();
+    document.getElementById('longitude').value = place.geometry.location.lng();
   });
 }
 
-// モーダルが開かれたときに初期化（DOMが確実に存在してから）
 document.addEventListener("DOMContentLoaded", () => {
-  $("#postModal").on("shown.bs.modal", function () {
-    if (!autocomplete) {
-      initAutocomplete();
-    }
-  });
+  initAutocomplete();
 });
 </script>
 
