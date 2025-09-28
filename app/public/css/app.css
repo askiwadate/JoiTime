@@ -11211,15 +11211,6 @@ a.text-dark:focus {
     font-size: 0.85rem;
   }
 
-
-  #changeBtn{
-    display: block;
-  }
-
-  #monthHeader {
-    flex-direction: row; /* 横並びにする */
-  }
-
   #loginHeader-sm{
     display: flex;
   }
@@ -11238,20 +11229,16 @@ a.text-dark:focus {
   display: flex;
 }
 
-#monthHeader{
-  display: flex;
-}
-
-#changeBtn {
-  display: flex;
-  flex-direction: row; /* 横並び */
-  align-items: center;
-}
-
 #calendar{
   height: 85%;
 }
 
 #loginHeader-sm{
   display: flex;
+}
+
+/* fullcalendar */
+.fc .fc-toolbar-chunk > div{
+  display: flex !important;
+  align-items: center;
 }

@@ -11,4 +11,11 @@ class ScheduleCategory extends Model
         return $this->hasMany(Schedule::class,'category_id','id');
     }
 
+    protected $fillable = [
+        'user_id',
+        'calendar_id',
+        'category_name',
+        'emoji',
+        'del_flg',
+    ];
 }

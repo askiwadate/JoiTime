@@ -5,9 +5,9 @@
 <section style="background-color: #FFFDF8; min-height: calc(100vh - 57px);">
   <div class="container-fluid">
     <div class="row w-100">
-      <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light collapse">
+      <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light collapse h-100">
         <!-- サイドバーコンテンツ -->
-        <div class="position-sticky pt-md-5" style="background-color: #FFFDF8; min-height: calc(100vh - 57px); padding: 0rem 0.78rem 0.78rem 0.78rem;">
+        <div class="position-sticky pt-md-5" style="background-color: #FFFDF8; padding: 0rem 0.78rem 0.78rem 0.78rem;">
           <ul class="nav flex-column align-items-center">
             <li class="nav-item mb-4">
               <a class="nav-link active flex-sm align-items-center" aria-current="page" href="#" data-toggle="modal" data-target="#categoryAddModal">
@@ -16,21 +16,9 @@
               </a>
             </li>
             <li class="nav-item mb-4">
-              <a class="nav-link  active flex-sm align-items-center panel-link" aria-current="page" href="#" id="panel-new">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M320 64C302.3 64 288 78.3 288 96L288 99.2C215 114 160 178.6 160 256L160 277.7C160 325.8 143.6 372.5 113.6 410.1L103.8 422.3C98.7 428.6 96 436.4 96 444.5C96 464.1 111.9 480 131.5 480L508.4 480C528 480 543.9 464.1 543.9 444.5C543.9 436.4 541.2 428.6 536.1 422.3L526.3 410.1C496.4 372.5 480 325.8 480 277.7L480 256C480 178.6 425 114 352 99.2L352 96C352 78.3 337.7 64 320 64zM258 528C265.1 555.6 290.2 576 320 576C349.8 576 374.9 555.6 382 528L258 528z"/></svg>
-                <span class="ml-2">新着</span>
-              </a>
-            </li>
-            <li class="nav-item mb-4">
               <a class="nav-link active flex-sm align-items-center panel-link" aria-current="page" href="#" id="panel-member">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M96 192C96 130.1 146.1 80 208 80C269.9 80 320 130.1 320 192C320 253.9 269.9 304 208 304C146.1 304 96 253.9 96 192zM32 528C32 430.8 110.8 352 208 352C305.2 352 384 430.8 384 528L384 534C384 557.2 365.2 576 342 576L74 576C50.8 576 32 557.2 32 534L32 528zM464 128C517 128 560 171 560 224C560 277 517 320 464 320C411 320 368 277 368 224C368 171 411 128 464 128zM464 368C543.5 368 608 432.5 608 512L608 534.4C608 557.4 589.4 576 566.4 576L421.6 576C428.2 563.5 432 549.2 432 534L432 528C432 476.5 414.6 429.1 385.5 391.3C408.1 376.6 435.1 368 464 368z"/></svg>
                 <span class="ml-2">メンバーリスト</span>
-              </a>
-            </li>
-            <li class="nav-item mb-4">
-              <a class="nav-link active flex-sm align-items-center panel-link" aria-current="page" href="#" id="panel-info">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M112 128C85.5 128 64 149.5 64 176C64 191.1 71.1 205.3 83.2 214.4L291.2 370.4C308.3 383.2 331.7 383.2 348.8 370.4L556.8 214.4C568.9 205.3 576 191.1 576 176C576 149.5 554.5 128 528 128L112 128zM64 260L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 260L377.6 408.8C343.5 434.4 296.5 434.4 262.4 408.8L64 260z"/></svg>
-                <span class="ml-2">お知らせ</span>
               </a>
             </li>
             <li class="nav-item mb-4">
@@ -76,35 +64,11 @@
       </div>
       <!-- カレンダーメイン部分 -->
       <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-        <div class="flex-sm justify-content-between">
-          <div id="monthHeader">
-            <button type="submit" style="background-color: transparent; border: none;" id="prev" onclick="prev()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320zM335 199C344.4 189.6 359.6 189.6 368.9 199C378.2 208.4 378.3 223.6 368.9 232.9L281.9 319.9L368.9 406.9C378.3 416.3 378.3 431.5 368.9 440.8C359.5 450.1 344.3 450.2 335 440.8L231 337C221.6 327.6 221.6 312.4 231 303.1L335 199z"/></svg></button>
-            <p class="month ml-3 mr-3" id="today-month"></p>
-            <button type="submit" style="background-color: transparent; border: none;" id="next" onclick="next()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM305 441C295.6 450.4 280.4 450.4 271.1 441C261.8 431.6 261.7 416.4 271.1 407.1L358.1 320.1L271.1 233.1C261.7 223.7 261.7 208.5 271.1 199.2C280.5 189.9 295.7 189.8 305 199.2L409 303C418.4 312.4 418.4 327.6 409 336.9L305 441z"/></svg></button>
-
-            <!-- 表示中のカレンダー -->
-            <div class="d-flex align-items-center">
-              <h4 class="mb-0">{{ $calendar->name }}</h4>
-            </div>
-          </div>
-
-
-          <div id="changeBtn">
-            <button type="button" class="ml-2 mr-1 btn-change pt-2 pb-2">月表示</button>
-            <button type="button" class="ml-2 mr-1 btn-change pt-2 pb-2">週表示</button>
-              <select class="ml-2 mr-3 select-change pt-2 pb-2">
-                <option value="" selected>メンバー表示切り替え</option>
-                <option value="">
-                <!-- 共有メンバーを選べるように -->
-                たろう
-                </option>
-              </select>
-          </div>
-        </div>
-        <div id="calendar" class="table-responsive mt-4"></div>
+        <div id="calendar"></div>
+        <!-- class="table-responsive mt-4" -->
         <!-- 予定作成ボタン -->
         <a href="#">
-          <div class="position-fixed rounded-circle text-white d-flex justify-content-center align-items-center" style="background: #3E6ED6; bottom: 2%; right: 2%; width: 55px; height: 55px;" data-toggle="modal" data-target="#postModal">
+          <div class="position-fixed rounded-circle text-white d-flex justify-content-center align-items-center" style="background: #3E6ED6; bottom: 2%; right: 2%; width: 55px; height: 55px; z-index: 2000;" data-toggle="modal" data-target="#postModal">
             <i class="fas fa-plus"></i>
           </div>
         </a>
@@ -215,7 +179,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>    
 
   <!-- 投稿モーダル -->
   <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
@@ -227,7 +191,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form id="scheduleForm" action="{{ route('schedules.store', ['calendar' => $calendar->id]) }}" method="POST">
+        <form id="scheduleForm" method="POST" action="{{ route('schedules.store',$calendar->id) }}">
           @csrf
           <input type="hidden" name="calendar_id" value="{{ $calendar->id }}">
           <div class="modal-body pr-5 pl-5">
@@ -259,7 +223,7 @@
               <select name="category_id" class="form-control">
                 <option>選択してください</option>
                 @foreach($categories as $cat)
-                <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
+                <option value="{{ $cat->id }}">{{ $cat->emoji }}{{ $cat->category_name }}</option>
                 @endforeach
               </select>
             </div>
@@ -267,9 +231,10 @@
             <div class="form-group">
               <label for="place">場所</label>
               <!-- ここでAPI連携 -->
-              <input id="placeInput" class="form-control" placeholder="場所を入力" type="text">
-              <input type="hidden" id="latitude">
-              <input type="hidden" id="longitude">
+              <input id="placeInput" class="form-control" placeholder="場所を入力" type="text" name="place_name">
+              <input type="hidden" id="place_address" name="place_address">
+              <input type="hidden" id="latitude" name="latitude">
+              <input type="hidden" id="longitude" name="longitude">
             </div>
 
             <div class="form-group">
@@ -285,7 +250,49 @@
       </div>
     </div>
   </div>
+
+  <!-- 詳細モーダル -->
+  <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header justify-content-between">
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title"><span id= "detailTitle"></h5>
+        <div class="dropdown">
+          <button class="btn btn-link" type="button" id="detailOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            &#x22EE;
+          </button>
+          <div class="dropdown-menu" aria-labelledby="detailOptions">
+            <a class="dropdown-item" href="#" id="editScheduleBtn">編集する</a>
+            <div class="position-relative">
+              <a class="dropdown-item text-danger" href="#" id="deleteScheduleBtn">削除する</a>
+
+              <!-- 二段階削除（削除ボタン直下に表示） -->
+              <div id="deleteConfirmGroup" class="mt-2" style="display:none; padding-left:1rem;">
+                <span>本当に削除しますか？</span>
+                <div class="mt-1">
+                  <button class="btn btn-sm btn-danger" id="confirmDeleteBtn">削除する</button>
+                  <button class="btn btn-sm btn-secondary" id="cancelDeleteBtn">キャンセル</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body pr-5 pl-5">
+        <p><strong>カテゴリ:</strong> <span id="detailCategory"></span></p>
+        <p><strong>開始:</strong> <span id="detailStart"></span></p>
+        <p><strong>終了:</strong> <span id="detailEnd"></span></p>
+        <p><strong>場所:</strong> <span id="detailPlace"></span></p>
+        <p><strong>コメント:</strong> <span id="detailComment"></span></p>
+      </div>
+
+    </div>
+  </div>
 </div>
+
 
 
   <!-- カテゴリ登録モーダル -->
@@ -298,17 +305,17 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form  method="POST">
+        <form  method="POST" action="{{ route('categories.store',$calendar->id) }}">
           @csrf
           <div class="modal-body pr-5 pl-5">
             <div class="form-group">
               <label for="categoryName">カテゴリ名</label>
-              <input type="text" class="form-control" id="categoryName">
+              <input type="text" class="form-control" id="categoryName" name="category_name" placeholder="例：登山">
             </div>
 
             <div class="form-group">
               <label for="emoji">カテゴリアイコン</label>
-              <input type="text" class="form-control" id="emoji">
+              <input type="text" class="form-control" id="emoji" name="emoji" placeholder="例：⛰️">
             </div>
 
             <div class="d-flex justify-content-center">
@@ -319,11 +326,9 @@
         <div class="modal-body pr-5 pl-5">
           <div class="container">
             <div class="row" style="row-gap: 0.5rem; column-gap: 1rem;">
-              <div class="col p-3 rounded-lg">⛰️＋登山</div>
-              <div class="col p-3 rounded-lg">😍＋デート</div>
-              <div class="w-100"></div>
-              <div class="col p-3 rounded-lg">🍽️＋外食</div>
-              <div class="col p-3 rounded-lg">🍖＋バーベキュー</div>
+            @foreach($categories as $cat)
+              <div class="col p-3 rounded-lg">{{ $cat->emoji }}{{ $cat->category_name }}</div>
+            @endforeach
             </div>
           </div>
         </div>
@@ -334,107 +339,99 @@
 
 @endsection
 @section('scripts')
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn3dwzZ7uXEKObEJXwPV2G4MU4XX6IHJQ&libraries=places"></script>
-<script>
-function initAutocomplete() {
-  const input = document.getElementById('placeInput');
-  const autocomplete = new google.maps.places.Autocomplete(input);
-
-  autocomplete.addListener('place_changed', () => {
-    const place = autocomplete.getPlace();
-    if (!place.geometry) return; // 候補外選択時
-    document.getElementById('latitude').value = place.geometry.location.lat();
-    document.getElementById('longitude').value = place.geometry.location.lng();
-  });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  initAutocomplete();
-});
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn3dwzZ7uXEKObEJXwPV2G4MU4XX6IHJQ&loading=async&libraries=places&callback=initMap">
 </script>
-
 <script>
-  // -------------------------------
-  // ここから既存カレンダーやモーダルの JS
-  // -------------------------------
-  document.addEventListener('DOMContentLoaded', function() {
-    const week = ["日","月","火","水","木","金","土"];
-    const today = new Date();
-    let showDate = new Date(today.getFullYear(), today.getMonth(), 1);
-    let schedules = [];
+// fullcalendar
+  document.addEventListener( 'DOMContentLoaded', () => {
+    const calendarEl = document.getElementById( 'calendar' );
+    const calendar = new FullCalendar.Calendar( calendarEl,{
+      initialView: 'dayGridMonth',
+      locale: 'ja',
+      height: 'auto',
+      headerToolbar: {
+        left: 'prev,title,next',
+        right: 'dayGridMonth,dayGridWeek',
+      },
+      buttonText: {
+        month: '月表示',
+        week: '週表示',
+      },
+      events: '/calendars/1/schedules/json', // ← カレンダーID1のデータを取得
+      eventClick: function(info) {
+            // モーダルにデータをセット
+            const schedule = info.event.extendedProps;
 
-    const calendarId = document.querySelector('#scheduleForm input[name="calendar_id"]').value;
-    fetch(`/calendars/${calendarId}/schedules`)
-        .then(res => res.json())
-        .then(data => {
-            schedules = data;
-            showProcess(showDate);
-        });
+            document.getElementById('detailTitle').innerText = info.event.title;
+            document.getElementById('detailCategory').innerText = schedule.category || '-';
+            document.getElementById('detailStart').innerText = info.event.start.toLocaleString();
+            document.getElementById('detailEnd').innerText = info.event.end ? info.event.end.toLocaleString() : '-';
+            document.getElementById('detailPlace').innerText = schedule.place_name || '-';
+            document.getElementById('detailComment').innerText = schedule.comment || '-';
 
-    document.getElementById('prev').addEventListener('click', () => { showDate.setMonth(showDate.getMonth()-1); showProcess(showDate); });
-    document.getElementById('next').addEventListener('click', () => { showDate.setMonth(showDate.getMonth()+1); showProcess(showDate); });
+            // モーダルを表示
+            $('#detailModal').modal('show');
+        }
+    });
+  
+    calendar.render();
 
-    const form = document.getElementById('scheduleForm');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-        fetch(form.action, {
-            method: 'POST',
-            headers: {'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value },
-            body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
-            schedules.push(data);
-            showProcess(showDate);
-            $('#postModal').modal('hide');
-            $('.modal-backdrop').remove();
-            form.reset();
-        })
-        .catch(err => console.error(err));
+    // fc-toolbar-chunk の子要素に対して flex を適用
+    const chunks = document.querySelectorAll('.fc-toolbar-chunk');
+    chunks.forEach(chunk => {
+      Array.from(chunk.children).forEach(child => {
+        child.style.display = 'flex';
+        child.style.justifyContent = 'space-between';
+        child.style.alignItems = 'center';
+      });
     });
 
-    function showProcess(date) {
-        document.querySelector('#today-month').innerHTML = `${date.getFullYear()}年&nbsp;${date.getMonth()+1}月`;
-        document.querySelector('#calendar').innerHTML = createProcess(date.getFullYear(), date.getMonth());
+    // prevボタン
+    const prevBtn = document.querySelector('.fc-prev-button');
+    if (prevBtn) {
+      prevBtn.style.marginRight = '0.75rem';
+      prevBtn.style.backgroundColor = '#3E6ED6';
+      prevBtn.style.width = '40px';
+      prevBtn.style.height = '40px';
+      prevBtn.style.borderRadius = '50%';
+      prevBtn.style.border = 'none';
+      prevBtn.style.alignItems = 'center';
     }
 
-    function createProcess(year, month) {
-        let calendar = "<table class='table-light'><tr>";
-        week.forEach(d => calendar += `<th>${d}</th>`); calendar += "</tr>";
-        const startDay = new Date(year, month, 1).getDay();
-        const endDate = new Date(year, month+1, 0).getDate();
-        const lastMonthEnd = new Date(year, month, 0).getDate();
-        const row = Math.ceil((startDay + endDate)/7);
-        let count = 0;
-        for(let i=0;i<row;i++){
-            calendar += "<tr>";
-            for(let j=0;j<7;j++){
-                if(i===0 && j<startDay){ calendar += `<td class='disabled'>${lastMonthEnd-startDay+j+1}</td>`; }
-                else if(count>=endDate){ count++; calendar += `<td class='disabled'>${count-endDate}</td>`; }
-                else{
-                    count++;
-                    let cell = `<div>${count}</div>`;
-                    schedules.forEach(sch => {
-                        const start = new Date(sch.start_date);
-                        if(start.getFullYear()===year && start.getMonth()===month && start.getDate()===count){
-                            cell += `<div class="schedule-item">
-                                <img src="/images/category/${sch.category_id}.png" width="16" height="16">
-                                <span>${sch.title}</span>
-                                <img src="/images/user/${sch.creator_id}.png" width="16" height="16">
-                            </div>`;
-                        }
-                    });
-                    calendar += `<td>${cell}</td>`;
-                }
-            }
-            calendar += "</tr>";
-        }
-        calendar += "</table>";
-        return calendar;
+    // nextボタン
+    const nextBtn = document.querySelector('.fc-next-button');
+    if (nextBtn) {
+      nextBtn.style.marginLeft = '0.75rem';
+      nextBtn.style.backgroundColor = '#3E6ED6';
+      nextBtn.style.width = '40px';
+      nextBtn.style.height = '40px';
+      nextBtn.style.borderRadius = '50%';
+      nextBtn.style.border = 'none';
+      nextBtn.style.alignItems = 'center';
     }
-  });
+  } );
+
+  //api
+  function initAutocomplete() {
+    const input = document.getElementById('placeInput');
+    const autocomplete = new google.maps.places.Autocomplete(input);
+
+    autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) return;
+
+        // 隠しフィールドに値をセット
+        document.getElementById('place_address').value = place.formatted_address;
+        document.getElementById('latitude').value = place.geometry.location.lat();
+        document.getElementById('longitude').value = place.geometry.location.lng();
+    });
+}
+
+// モーダル表示時に初期化
+$('#postModal').on('shown.bs.modal', function () {
+    initAutocomplete();
+});
 
   // -------------------------------
   // サイドパネル JS（既存のまま）
@@ -457,22 +454,10 @@ document.addEventListener("DOMContentLoaded", () => {
       link.addEventListener("click", e => {
         e.preventDefault();
         panelCards.innerHTML = "";
-        if (id === "panel-new") {
-          panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">新着</h5>`;
-          const posts = [{ title: "予定1", content: "富士山登山" }, { title: "予定2", content: "飲み会" }];
-          posts.forEach(post => {
-            panelCards.innerHTML += `<div class="card m-2"><div class="card-body"><h5 class="card-title">${post.title}</h5><p class="card-text">${post.content}</p></div></div>`;
-          });
-        } else if (id === "panel-member") {
+        if (id === "panel-member") {
           panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">メンバーリスト</h5>`;
           panelCards.innerHTML = `<div class="card m-2"><div class="card-body"><input type="text" class="form-control mb-2" placeholder="メンバー検索"><ul><li>ユーザーA</li><li>ユーザーB</li></ul><button class="btn btn-sm btn-primary mt-2">招待リンクを発行</button></div></div>`;
-        } else if (id === "panel-info") {
-          panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">お知らせ</h5>`;
-          const infos = [{ title: "メンテナンス", content: "9/30 23:00からシステムメンテナンスがあります。" }, { title: "新機能", content: "新しいカレンダー機能が追加されました！" }];
-          infos.forEach(info => {
-            panelCards.innerHTML += `<div class="card m-2"><div class="card-body"><h5 class="card-title">${info.title}</h5><p class="card-text">${info.content}</p></div></div>`;
-          });
-        }
+        } 
         rightPanel.classList.add("active","scrollable");
       });
     });

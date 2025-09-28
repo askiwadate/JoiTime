@@ -17,6 +17,7 @@ class ScheduleCategoriesTableSeeder extends Seeder
 
         DB::table('schedule_categories')->insert([
             'user_id' => 1,
+            'calendar_id' => 1,
             'category_name' => '美容院',
             'emoji' => '✂️',
             'del_flg' => 0,

@@ -20,4 +20,9 @@ class Calendar extends Model
     public function schedules(){
         return $this->hasMany(Schedule::class,'calendar_id','id');
     }
+
+    // 1つのカレンダーは複数のカテゴリを持つ
+    public function categories(){
+        return $this->hasMany(ScheduleCategory::class,'calendar_id','id');
+    }
 }
