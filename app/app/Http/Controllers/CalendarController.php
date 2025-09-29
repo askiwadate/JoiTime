@@ -27,17 +27,12 @@ class CalendarController extends Controller
         // 自分が作成したカレンダー一覧
         $myCalendars =Calendar::where('owner_id',$userId)->get();
 
-        // 参加しているカレンダー一覧
-        $joinedCalendars = Calendar::whereHas('users',function($query) use ($userId){
-        $query->where('user_id',$userId);
-        })->get();
-
         // どのカレンダーを表示するの選択（？caledar_id=xx)で指定
         $calendar = Calendar::findOrFail($calendar_id);
 
         $categories = $calendar->categories()->get(); // このカレンダーのカテゴリ一覧を取得
 
-        return view('calendars',compact('calendar','myCalendars','joinedCalendars','categories'));
+        return view('calendars',compact('calendar','myCalendars','categories'));
     }
 
     // 投稿モーダル
@@ -71,7 +66,7 @@ class CalendarController extends Controller
     
     // カレンダー反映API
     public function schedulesJson($calendar_id) {
-        $schedules = Schedule::with('category')->where('calendar_id', $calendar_id)->get();
+        $schedules = Schedule::with('category')->where('calendar_id', $calendar_id)->where('del_flg',0)->get();
     
         $events = $schedules->map(function($schedule){
             return [
@@ -108,7 +103,23 @@ class CalendarController extends Controller
         
         ScheduleCategory::create($validated);
         return redirect()->back();
-}
+    }
 
+    public function softDelete($id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        $schedule->del_flg = 1; // 論理削除フラグを立てる
+        $schedule->save();
+    
+        return redirect()->back();
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        $schedule->update($request->all());
+        return redirect()->back()->with('success', '予定を更新しました');
+    }
 
 }

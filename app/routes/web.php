@@ -27,9 +27,11 @@ Route::get('/schedules/{schedule}/edit', [CalendarController::class, 'edit'])->n
 
 // Schedule更新
 Route::put('/schedules/{schedule}', [CalendarController::class, 'update'])->name('schedules.update');
+// Schedule削除（論理削除）
+Route::delete('/schedules/{id}/delete', [CalendarController::class, 'softDelete'])->name('schedules.delete');
+Route::put('/schedules/{id}/update', [CalendarController::class, 'update'])->name('schedules.update');
 
-// Schedule削除
-Route::delete('/schedules/{schedule}', [CalendarController::class, 'destroy'])->name('schedules.destroy');
+
 
 
 

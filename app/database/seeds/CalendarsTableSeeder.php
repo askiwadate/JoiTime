@@ -20,5 +20,12 @@ class CalendarsTableSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' =>Carbon::now(),
         ]);
+
+        DB::table('calendars')->insert([
+            'name' => 'バイト用',
+            'owner_id' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' =>Carbon::now(),
+        ]);
     }
 }
