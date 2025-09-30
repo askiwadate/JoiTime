@@ -25,4 +25,9 @@ class Calendar extends Model
     public function categories(){
         return $this->hasMany(ScheduleCategory::class,'calendar_id','id');
     }
+
+    protected $fillable = [
+        'name',
+        'owner_id',
+    ];
 }

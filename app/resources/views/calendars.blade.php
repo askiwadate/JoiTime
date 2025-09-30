@@ -16,15 +16,15 @@
               </a>
             </li>
             <li class="nav-item mb-4">
-              <a class="nav-link active flex-sm align-items-center panel-link" aria-current="page" href="#" id="panel-member">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M96 192C96 130.1 146.1 80 208 80C269.9 80 320 130.1 320 192C320 253.9 269.9 304 208 304C146.1 304 96 253.9 96 192zM32 528C32 430.8 110.8 352 208 352C305.2 352 384 430.8 384 528L384 534C384 557.2 365.2 576 342 576L74 576C50.8 576 32 557.2 32 534L32 528zM464 128C517 128 560 171 560 224C560 277 517 320 464 320C411 320 368 277 368 224C368 171 411 128 464 128zM464 368C543.5 368 608 432.5 608 512L608 534.4C608 557.4 589.4 576 566.4 576L421.6 576C428.2 563.5 432 549.2 432 534L432 528C432 476.5 414.6 429.1 385.5 391.3C408.1 376.6 435.1 368 464 368z"/></svg>
-                <span class="ml-2">メンバーリスト</span>
+              <a class="nav-link active flex-sm align-items-center panel-link" data-toggle="modal" data-target="#createCalendar">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M224 64C241.7 64 256 78.3 256 96L256 128L384 128L384 96C384 78.3 398.3 64 416 64C433.7 64 448 78.3 448 96L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 96C192 78.3 206.3 64 224 64zM320 256C306.7 256 296 266.7 296 280L296 328L248 328C234.7 328 224 338.7 224 352C224 365.3 234.7 376 248 376L296 376L296 424C296 437.3 306.7 448 320 448C333.3 448 344 437.3 344 424L344 376L392 376C405.3 376 416 365.3 416 352C416 338.7 405.3 328 392 328L344 328L344 280C344 266.7 333.3 256 320 256z"/></svg>
+                <span class="ml-2">カレンダー追加</span>
               </a>
             </li>
             <li class="nav-item mb-4">
               <a class="nav-link active dropdown-toggle flex-sm align-items-center panel-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M224 64C241.7 64 256 78.3 256 96L256 128L384 128L384 96C384 78.3 398.3 64 416 64C433.7 64 448 78.3 448 96L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 96C192 78.3 206.3 64 224 64zM160 304L160 336C160 344.8 167.2 352 176 352L208 352C216.8 352 224 344.8 224 336L224 304C224 295.2 216.8 288 208 288L176 288C167.2 288 160 295.2 160 304zM288 304L288 336C288 344.8 295.2 352 304 352L336 352C344.8 352 352 344.8 352 336L352 304C352 295.2 344.8 288 336 288L304 288C295.2 288 288 295.2 288 304zM432 288C423.2 288 416 295.2 416 304L416 336C416 344.8 423.2 352 432 352L464 352C472.8 352 480 344.8 480 336L480 304C480 295.2 472.8 288 464 288L432 288zM160 432L160 464C160 472.8 167.2 480 176 480L208 480C216.8 480 224 472.8 224 464L224 432C224 423.2 216.8 416 208 416L176 416C167.2 416 160 423.2 160 432zM304 416C295.2 416 288 423.2 288 432L288 464C288 472.8 295.2 480 304 480L336 480C344.8 480 352 472.8 352 464L352 432C352 423.2 344.8 416 336 416L304 416zM416 432L416 464C416 472.8 423.2 480 432 480L464 480C472.8 480 480 472.8 480 464L480 432C480 423.2 472.8 416 464 416L432 416C423.2 416 416 423.2 416 432z"/></svg>
-                <span class="ml-2">作成カレンダー</span>
+                <span class="ml-2">カレンダー</span>
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 @foreach($myCalendars as $myCal)
@@ -63,111 +63,28 @@
 
 
   <!-- モーダル -->
-  <!-- 検索モーダル -->
-  <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content pre-scrollable">
+  <!-- カレンダー追加用モーダル -->
+  <div class="modal fade" id="createCalendar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form action="{{ route('calendars.store') }}" method="POST">
+        @csrf
+        <div class="modal-content">
         <div class="modal-header justify-content-center">
-          <h5 class="modal-title" id="searchModalLabel">予定作成</h5>
           <button type="button" class="close position-absolute" style="right: 15px;" data-dismiss="modal" aria-label="閉じる">
             <span aria-hidden="true">&times;</span>
           </button>
+          <h5 class="modal-title" id="createCalendarLabel">カレンダー新規作成</h5>
         </div>
-        <form  method="POST">
-          @csrf
-          <div class="modal-body pr-5 pl-5">
-            <div class="form-group d-flex justify-content-between">
-              <div style="width: 12rem;">
-                <label for="start-date">開始日</label>
-                <input type="date" class="form-control" id="start-date">
-              </div>
-              <div style="width: 12rem;">
-                <label for="end-date">終了日</label>
-                <input type="date" class="form-control" id="end-date">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="category">カテゴリ</label>
-                <select name="category" class="form-control">
-                  <option value="">⛰️登山</option>
-                  <option value="">😍デート</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-              <label for="member">メンバー</label>
-                <select name="member" class="form-control">
-                  <option value="">たろう</option>
-                  <option value="">みさき</option>
-                </select>
-            </div>
+          <div class="modal-body">
+            <input type="text" name="name" id="newCalendarName" class="form-control" placeholder="カレンダー名" required>
           </div>
-          <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary">検索</button>
+          <div class="d-flex justify-content-center mb-3">
+            <button type="submit" class="btn btn-primary">作成</button>
           </div>
-        </form>
-        <div class="modal-body pr-5 pl-5">
-          <table class="table">
-            <thead>
-              <!-- 予定の日付 -->
-              <tr>
-                <th scope="col">日付</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <!-- 予定作成者アイコン -->
-                  <button class="rounded-circle img-nonimg ml-3"><img src="" alt="" class=""></button>
-                </td>
-                <td>
-                  <!-- カテゴリアイコン -->
-                  <p>⛰️</p>
-                </td>
-                <td>
-                  <!-- 予定タイトル -->
-                  <p>富士山登る</p>
-                </td>
-                <td class="d-flex">
-                  <!-- 予定の時間 -->
-                  <p>10:00</p>
-                  ~
-                  <p>19:00</p>
-                </td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <td>
-                  <!-- 予定作成者アイコン -->
-                  <button class="rounded-circle img-nonimg ml-3"><img src="" alt="" class=""></button>
-                </td>
-                <td>
-                  <!-- カテゴリアイコン -->
-                  <p>⛰️</p>
-                </td>
-                <td>
-                  <!-- 予定タイトル -->
-                  <p>富士山登る</p>
-                </td>
-                <td class="d-flex">
-                  <!-- 予定の時間 -->
-                  <p>10:00</p>
-                  ~
-                  <p>19:00</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
-      </div>
+      </form>
     </div>
-  </div>    
-  <!-- 検索モーダルここまで -->
+  </div>
 
   <!-- 投稿モーダル -->
   <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
@@ -219,10 +136,10 @@
             <div class="form-group">
               <label for="place">場所</label>
               <!-- ここでAPI連携 -->
-              <input id="placeInput" class="form-control" placeholder="場所を入力" type="text" name="place_name">
-              <input type="hidden" id="place_address" name="place_address">
-              <input type="hidden" id="latitude" name="latitude">
-              <input type="hidden" id="longitude" name="longitude">
+              <input id="post-placeInput" class="form-control" placeholder="場所を入力" type="text" name="place_name">
+              <input type="hidden" id="post_place_address" name="place_address">
+              <input type="hidden" id="post_latitude" name="latitude">
+              <input type="hidden" id="post_longitude" name="longitude">
             </div>
 
             <div class="form-group">
@@ -251,7 +168,7 @@
         <h5 class="modal-title"><span id="detailTitle"></h5>
         <!-- 三点リーダー -->
         <div class="dropdown">
-          <button class="btn btn-link p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="btn btn-link p-0 mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             &#x22EE;
           </button>
           <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
@@ -312,6 +229,7 @@
             <div class="row" style="row-gap: 0.5rem; column-gap: 1rem;">
             @foreach($categories as $cat)
               <div class="col p-3 rounded-lg">{{ $cat->emoji }}{{ $cat->category_name }}</div>
+              <div class="w-100"></div>
             @endforeach
             </div>
           </div>
@@ -344,17 +262,17 @@
             <div class="form-group">
               <div class="d-flex justify-content-between align-items-center" >
                 <label for="start-date">開始</label>
-                <input type="date" class="form-control" name="start_date" id="start-date" style="width: 10rem;" id="start-date">
-                <input type="time" class="form-control" name="start_time" style="width: 10rem;" id="start-time">
+                <input type="date" class="form-control" name="start_date" id="edit-start-date" style="width: 10rem;">
+                <input type="time" class="form-control" name="start_time" style="width: 10rem;" id="edit-start-time">
               </div>
               <div class="d-flex justify-content-between align-items-center mt-2">
                 <label for="end-date">終了</label>
-                <input type="date" class="form-control" name="end_date" id="end-date" style="width: 10rem;" id="end-date">
-                <input type="time" class="form-control" name="end_time" style="width: 10rem;" id="end-time">
+                <input type="date" class="form-control" name="end_date" id="edit-end-date" style="width: 10rem;">
+                <input type="time" class="form-control" name="end_time" style="width: 10rem;" id="edit-end-time">
               </div>
 
               <div class="d-flex align-items-center mt-2 mb-3">
-                <input type="checkbox" class="mr-2" id="fullday" name="all_day" value="1">
+                <input type="checkbox" class="mr-2" id="edit-fullday" name="all_day" value="1">
                 <label for="fullday" class="mb-0">終日</label>
               </div>
             </div>
@@ -372,10 +290,10 @@
             <div class="form-group">
               <label for="place">場所</label>
               <!-- ここでAPI連携 -->
-              <input id="placeInput" class="form-control" placeholder="場所を入力" type="text" name="place_name">
-              <input type="hidden" id="place_address" name="place_address">
-              <input type="hidden" id="latitude" name="latitude">
-              <input type="hidden" id="longitude" name="longitude">
+              <input id="edit-placeInput" class="form-control" placeholder="場所を入力" type="text" name="place_name">
+              <input type="hidden" id="edit_place_address" name="place_address">
+              <input type="hidden" id="edit_latitude" name="latitude">
+              <input type="hidden" id="edit_longitude" name="longitude">
             </div>
 
             <div class="form-group">
@@ -401,155 +319,237 @@
 </script>
 <script>
 // fullcalendar
-  document.addEventListener( 'DOMContentLoaded', () => {
-    const calendarEl = document.getElementById('calendar');
-    // 表示しているカレンダーIDをJSに埋め込む
-    const calendarId = @json($calendar->id);
+document.addEventListener('DOMContentLoaded', () => {
+  const calendarEl = document.getElementById('calendar');
+  const calendarId = @json($calendar->id);
 
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth',
-      locale: 'ja',
-      height: 'auto',
-      headerToolbar: {
-        left: 'prev,title,next',
-        right: 'dayGridMonth,dayGridWeek',
-      },
-      buttonText: {
-        month: '月表示',
-        week: '週表示',
-      },
-      // カレンダーIDごとにイベントを取得
-      events: `/calendars/${calendarId}/schedules/json`,
+  let currentEventId = null; // 編集モーダル用の現在イベントID
 
-      eventClick: function(info) {
-    const schedule = info.event.extendedProps;
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    locale: 'ja',
+    height: 'auto',
+    headerToolbar: {
+      left: 'prev,title,next',
+      right: 'dayGridMonth,dayGridWeek',
+    },
+    buttonText: {
+      month: '月表示',
+      week: '週表示',
+    },
+    events: `/calendars/${calendarId}/schedules/json`,
 
-    // --- 詳細モーダルにセット ---
-    document.getElementById('detailTitle').innerText = info.event.title;
-    document.getElementById('detailCategory').innerText = schedule.category_name || '-';
+    eventClick: function(info) {
+  const schedule = info.event.extendedProps;
+  currentEventId = info.event.id; // 編集用に保持
+
+  // --- 詳細モーダルにセット ---
+  document.getElementById('detailTitle').innerText = info.event.title;
+  document.getElementById('detailCategory').innerText = schedule.category_name || '-';
+
+  if (schedule.all_day) {
+    // 終日なら日付だけ表示
+    document.getElementById('detailStart').innerText = info.event.start.toLocaleDateString();
+    if (info.event.end) {
+      const end = new Date(info.event.end);
+      document.getElementById('detailEnd').innerText = end.toLocaleDateString();
+    } else {
+      document.getElementById('detailEnd').innerText = info.event.start.toLocaleDateString();
+    }
+  } else {
+    // 通常イベント
     document.getElementById('detailStart').innerText = info.event.start.toLocaleString();
     document.getElementById('detailEnd').innerText = info.event.end ? info.event.end.toLocaleString() : '-';
-    document.getElementById('detailPlace').innerText = schedule.place_name || '-';
-    document.getElementById('detailComment').innerText = schedule.comment || '-';
+  }
 
-    // 削除フォーム
-    const deleteForm = document.getElementById('deleteScheduleForm');
-    deleteForm.action = `/schedules/${info.event.id}/delete`;
+  document.getElementById('detailPlace').innerText = schedule.place_name || '-';
+  document.getElementById('detailComment').innerText = schedule.comment || '-';
 
-    // --- 編集フォームにセット ---
-    const editForm = document.getElementById('editScheduleForm');
-    editForm.action = `/schedules/${info.event.id}`;
-    editForm.dataset.eventId = info.event.id;
+  // 削除フォーム
+  const deleteForm = document.getElementById('deleteScheduleForm');
+  deleteForm.action = `/schedules/${info.event.id}/delete`;
 
-    // タイトル
-    document.getElementById('editTitle').value = info.event.title;
+  // --- 編集フォームにセット ---
+  const editForm = document.getElementById('editScheduleForm');
+  editForm.action = `/schedules/${info.event.id}`;
+  editForm.dataset.eventId = info.event.id;
 
-    // カテゴリ
-    document.getElementById('editCategory').value = schedule.category_id || '';
+  document.getElementById('editTitle').value = info.event.title;
+  document.getElementById('editCategory').value = schedule.category_id || '';
 
-    // 開始日・開始時間
+  if (schedule.all_day) {
+    // 終日なら日付だけセット
+    const start = new Date(info.event.start);
+    document.getElementById('edit-start-date').value = start.toISOString().slice(0,10);
+
+    if (info.event.end) {
+      const end = new Date(info.event.end);
+      document.getElementById('edit-end-date').value = end.toISOString().slice(0,10);
+    } else {
+      document.getElementById('edit-end-date').value = start.toISOString().slice(0,10);
+    }
+
+    // 時間は空欄に
+    document.getElementById('edit-start-time').value = '';
+    document.getElementById('edit-end-time').value = '';
+  } else {
+    // 通常イベント
     if(info.event.start){
       const start = new Date(info.event.start);
-      document.getElementById('start-date').value = start.toISOString().slice(0,10);
-      document.getElementById('start-time').value = start.toTimeString().slice(0,5);
+      document.getElementById('edit-start-date').value = start.toISOString().slice(0,10);
+      document.getElementById('edit-start-time').value = start.toTimeString().slice(0,5);
     }
 
-    // 終了日・終了時間
     if(info.event.end){
       const end = new Date(info.event.end);
-      document.getElementById('end-date').value = end.toISOString().slice(0,10);
-      document.getElementById('end-time').value = end.toTimeString().slice(0,5);
+      document.getElementById('edit-end-date').value = end.toISOString().slice(0,10);
+      document.getElementById('edit-end-time').value = end.toTimeString().slice(0,5);
     } else {
-      document.getElementById('end-date').value = '';
-      document.getElementById('end-time').value = '';
+      document.getElementById('edit-end-date').value = '';
+      document.getElementById('edit-end-time').value = '';
     }
+  }
 
-    // 終日
-    document.getElementById('fullday').checked = schedule.all_day ? true : false;
+  document.getElementById('edit-fullday').checked = schedule.all_day ? true : false;
 
-    // 場所
-    document.getElementById('placeInput').value = schedule.place_name || '';
-    document.getElementById('place_address').value = schedule.place_address || '';
-    document.getElementById('latitude').value = schedule.latitude || '';
-    document.getElementById('longitude').value = schedule.longitude || '';
+  document.getElementById('edit-placeInput').value = schedule.place_name || '';
+  document.getElementById('edit_place_address').value = schedule.place_address || '';
+  document.getElementById('edit_latitude').value = schedule.latitude || '';
+  document.getElementById('edit_longitude').value = schedule.longitude || '';
 
-    // コメント
-    document.getElementById('editComment').value = schedule.comment || '';
+  document.getElementById('editComment').value = schedule.comment || '';
 
-    // 詳細モーダル表示
-    $('#detailModal').modal('show');
-
-    // --- 編集ボタン押したら編集モーダル ---
-    document.getElementById('editScheduleBtn').onclick = function() {
-        $('#editModal').modal('show');
-
-        // --- ここで Autocomplete を初期化 ---
-        initAutocomplete('placeInput');
-    };
+  // 詳細モーダル表示
+  $('#detailModal').modal('show');
 }
+  });
 
+  calendar.render();
+
+  // fc-toolbar-chunk の子要素に対して flex を適用
+  const chunks = document.querySelectorAll('.fc-toolbar-chunk');
+  chunks.forEach(chunk => {
+    Array.from(chunk.children).forEach(child => {
+      child.style.display = 'flex';
+      child.style.justifyContent = 'space-between';
+      child.style.alignItems = 'center';
     });
-  
-    calendar.render();
+  });
 
-    // fc-toolbar-chunk の子要素に対して flex を適用
-    const chunks = document.querySelectorAll('.fc-toolbar-chunk');
-    chunks.forEach(chunk => {
-      Array.from(chunk.children).forEach(child => {
-        child.style.display = 'flex';
-        child.style.justifyContent = 'space-between';
-        child.style.alignItems = 'center';
-      });
-    });
+  // prevボタン
+  const prevBtn = document.querySelector('.fc-prev-button');
+  if (prevBtn) {
+    prevBtn.style.marginRight = '0.75rem';
+    prevBtn.style.backgroundColor = '#3E6ED6';
+    prevBtn.style.width = '40px';
+    prevBtn.style.height = '40px';
+    prevBtn.style.borderRadius = '50%';
+    prevBtn.style.border = 'none';
+    prevBtn.style.alignItems = 'center';
+  }
 
-    // prevボタン
-    const prevBtn = document.querySelector('.fc-prev-button');
-    if (prevBtn) {
-      prevBtn.style.marginRight = '0.75rem';
-      prevBtn.style.backgroundColor = '#3E6ED6';
-      prevBtn.style.width = '40px';
-      prevBtn.style.height = '40px';
-      prevBtn.style.borderRadius = '50%';
-      prevBtn.style.border = 'none';
-      prevBtn.style.alignItems = 'center';
+  // nextボタン
+  const nextBtn = document.querySelector('.fc-next-button');
+  if (nextBtn) {
+    nextBtn.style.marginLeft = '0.75rem';
+    nextBtn.style.backgroundColor = '#3E6ED6';
+    nextBtn.style.width = '40px';
+    nextBtn.style.height = '40px';
+    nextBtn.style.borderRadius = '50%';
+    nextBtn.style.border = 'none';
+    nextBtn.style.alignItems = 'center';
+  }
+
+// --- 編集フォームAjax送信 ---
+$('#editScheduleForm').on('submit', function(e){
+  e.preventDefault();
+  const id = $(this).data('event-id');
+  const data = $(this).serialize();
+
+  $.ajax({
+    url: `/schedules/${id}`,
+    method: 'PUT',
+    data: data,
+    success: function(res){
+      $('#editModal').modal('hide');
+      $('.modal-backdrop').remove();
+      $('body').removeClass('modal-open');
+      currentEventId = null;
+
+      const event = calendar.getEventById(id);
+      event.setProp('title', res.title);
+      event.setExtendedProp('category_id', res.category_id);
+      event.setExtendedProp('place_name', res.place_name);
+      event.setExtendedProp('place_address', res.place_address);
+      event.setExtendedProp('latitude', res.latitude);
+      event.setExtendedProp('longitude', res.longitude);
+      event.setExtendedProp('comment', res.comment);
+
+      // --- 終日対応 修正版 ---
+      const isAllDay = res.all_day ? true : false;
+      let start, end;
+
+      if (isAllDay) {
+        start = new Date(res.start_date);
+        if (res.end_date) {
+          end = new Date(res.end_date);
+          // FullCalendarは終日イベントのendを「翌日」にする必要あり
+          end.setDate(end.getDate() + 1);
+        } else {
+          end = new Date(res.start_date);
+          end.setDate(end.getDate() + 1);
+        }
+      } else {
+        // 時間付きイベント
+        start = new Date(res.start_date + 'T' + (res.start_time || '00:00'));
+        if (res.end_date) {
+          end = new Date(res.end_date + 'T' + (res.end_time || '23:59'));
+        } else {
+          end = null;
+        }
+      }
+
+      event.setAllDay(isAllDay);
+      event.setStart(start);
+      event.setEnd(end);
+    },
+    error: function(){
+      alert('編集の更新に失敗しました');
     }
+  });
+});
 
-    // nextボタン
-    const nextBtn = document.querySelector('.fc-next-button');
-    if (nextBtn) {
-      nextBtn.style.marginLeft = '0.75rem';
-      nextBtn.style.backgroundColor = '#3E6ED6';
-      nextBtn.style.width = '40px';
-      nextBtn.style.height = '40px';
-      nextBtn.style.borderRadius = '50%';
-      nextBtn.style.border = 'none';
-      nextBtn.style.alignItems = 'center';
-    }
-  } );
+});
 
-  //api
-function initAutocomplete(inputId){
+// Google Places Autocomplete 初期化
+function initAutocomplete(inputId, addressId, latId, lngId){
   const input = document.getElementById(inputId);
-  if(!input) return;
+  if(!input || input.autocompleteInitialized) return;
+
   const autocomplete = new google.maps.places.Autocomplete(input);
 
   autocomplete.addListener('place_changed', () => {
-      const place = autocomplete.getPlace();
-      if (!place.geometry) return;
+    const place = autocomplete.getPlace();
+    if(!place.geometry) return;
 
-      document.getElementById('place_address').value = place.formatted_address;
-      document.getElementById('latitude').value = place.geometry.location.lat();
-      document.getElementById('longitude').value = place.geometry.location.lng();
+    document.getElementById(addressId).value = place.formatted_address;
+    document.getElementById(latId).value = place.geometry.location.lat();
+    document.getElementById(lngId).value = place.geometry.location.lng();
   });
+
+  input.autocompleteInitialized = true;
 }
 
-  // モーダル表示時に初期化
-  $('#postModal').on('shown.bs.modal', function () {
-    initAutocomplete();
-  });
+// 投稿モーダル
+$('#postModal').on('shown.bs.modal', function () {
+  initAutocomplete('post-placeInput', 'post_place_address', 'post_latitude', 'post_longitude');
+});
 
-
-
+// 編集モーダル
+$('#editModal').on('shown.bs.modal', function () {
+  // 編集モーダルではここで Autocomplete 初期化
+  initAutocomplete('edit-placeInput', 'edit_place_address', 'edit_latitude', 'edit_longitude');
+});
 
   // -------------------------------
   // サイドパネル JS（既存のまま）

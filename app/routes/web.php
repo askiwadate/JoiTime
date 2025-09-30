@@ -14,8 +14,10 @@ use App\Http\Controllers\CalendarController;
 |
 */
 
-
+// カレンダー表示
 Route::get('/calendars/{calendar_id}', [CalendarController::class,'show'])->name('calendars.show');
+// カレンダー作成（Ajax用）
+Route::post('/calendars', [CalendarController::class, 'storeCalendar'])->name('calendars.store');
 // 予定データ登録
 Route::post('/calendars/{calendar}/schedules', [CalendarController::class,'store'])->name('schedules.store');
 // 予定表示
