@@ -7,7 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
+use App\User;
 
 class ResetPasswordController extends Controller
 {
@@ -23,30 +23,18 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
-    /**
-     * リセット後にリダイレクトする先
-     */
-    protected $redirectTo = '/login'; // ログイン画面へ
+    // パスワードリセット後のリダイレクト先
+    protected $redirectTo = '/login'; // ログイン画面に飛ばす
 
     /**
-     * パスワードリセット処理
-     * 自動ログインしないようにオーバーライド
+     * パスワードリセット処理をオーバーライド
      */
-public function reset(Request $request)
-{
-    dd('リセット処理到達');
-    return $this->traitReset($request);
-}
-
-    /**
-     * リセットフォーム表示
-     */
-    public function showResetForm(Request $request, $token = null)
+    protected function resetPassword(User $user, $password)
     {
-        return view('auth.passwords.reset', [
-            'token' => $token,
-            'email' => $request->email,
-        ]);
+        // Hash::make は不要！
+        $user->password = $password; // モデルの setPasswordAttribute で自動ハッシュされる
+        $user->setRememberToken(Str::random(60));
+        $user->save();
     }
 
 }

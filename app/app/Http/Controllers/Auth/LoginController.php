@@ -10,43 +10,37 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
-
-    // デフォルトのホームルート
-    protected const HOME = '/home';
-
-// ログアウト
-public function logout(Request $request){
-    Auth::logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-    return redirect('login');
-}
-
-    /**
-     * ログイン後にリダイレクト
-     */
-    protected function authenticated(Request $request, $user)
+    // ログインフォーム表示
+    public function showLoginForm()
     {
-        $credentials = $request->only('email', 'password');
-
-        // デバッグ用に確認
-        if (!Auth::attempt($credentials)) {
-            dd('ログイン失敗'); // ここで止まる → どこが問題か確認
-        }
-    
-        // 成功した場合
-        return redirect()->intended('/home');
+        return view('auth.login');
     }
 
+    // ログイン処理
     public function login(Request $request)
     {
-    // まずフォームからの入力をそのまま確認
         $credentials = $request->only('email', 'password');
-        dd($credentials);
 
-    // データベースのパスワードと比較
-    $user = \App\User::where('email', $request->email)->first();
-    dd(Hash::check($request->password, $user->password));
+        if (Auth::attempt($credentials)) {
+            // ログイン成功
+            $calendar = Auth::user()->ownedCalendars()->first(); // 作ったカレンダーだけ取得
+        
+            if ($calendar) {
+                // 作ったカレンダーがある場合はそのカレンダーにリダイレクト
+                return redirect()->route('calendars.show', $calendar->id);
+            } else {
+                // 作ったカレンダーがない場合は404
+                abort(404);
+            }
+        } else {
+            return back()->withErrors(['email' => 'メールアドレスまたはパスワードが違います']);
+        }
+    }
+
+    // ログアウト
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('login');
     }
 }

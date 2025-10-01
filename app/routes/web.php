@@ -20,13 +20,8 @@ use Illuminate\Support\Facades\Hash;
 */
 
 // 認証
-// Auth::routes();
-Route::get('/debug-hash', function() {
-  $user = App\User::where('email', 'as.iwadate@gmail.com')->first();
-  dd(Hash::check('test8888', $user->password));
-});
-
-// Route::group(['middleware' => 'auth'],function(){
+Auth::routes();
+Route::group(['middleware' => 'auth'],function(){
   // パスワード忘れた人用
   Route::get('/calendars/fogot/password',[ForgotPasswordController::class,'index'])->name('forgot');
   // カレンダー一覧表示
@@ -49,7 +44,7 @@ Route::get('/debug-hash', function() {
   Route::put('/schedules/{id}/update', [CalendarController::class, 'update'])->name('schedules.update');
   // ログアウト
   Route::post('/logout',[LoginController::class,'logout'])->name('logout');
-// });
+ });
 
 
 
