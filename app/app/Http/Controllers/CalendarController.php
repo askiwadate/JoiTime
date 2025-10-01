@@ -20,12 +20,10 @@ class CalendarController extends Controller
     //     return view('calendars');
     // }
 
-
-
-    // カレンダー表示
+    // カレンダー切り替え表示
     public function show($calendar_id){
         // まだauth未導入なので固定
-        $userId = 1;
+        $userId = auth()->user();
 
         // 自分が作成したカレンダー一覧
         $myCalendars =Calendar::where('owner_id',$userId)->get();

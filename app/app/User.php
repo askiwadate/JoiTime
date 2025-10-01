@@ -15,10 +15,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
+    protected $fillable = ['name','email','password','birthday','role','icon','del_flg'];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -37,11 +34,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function calendars(){
-        return $this->belongsToMany(Calendar::class,'calendar_users','user_id','calendar_id');
+    // パスワードは自動ハッシュ
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
     }
 
-    public function ownedCalendars(){
-        return $this->hasMany(Calendar::class,'owner_id','id');
+    // 作成したカレンダー
+    public function ownedCalendars()
+    {
+        return $this->hasMany(Calendar::class, 'owner_id','id');
+    }
+
+    // 共有カレンダー
+    public function calendars()
+    {
+        return $this->belongsToMany(Calendar::class, 'calendar_users', 'user_id', 'calendar_id');
     }
 }

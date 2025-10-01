@@ -15,17 +15,18 @@ class CalendarsTableSeeder extends Seeder
     {
         //
         DB::table('calendars')->insert([
-            'name' => '山田家族',
-            'owner_id' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' =>Carbon::now(),
-        ]);
-
-        DB::table('calendars')->insert([
-            'name' => 'バイト用',
-            'owner_id' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' =>Carbon::now(),
+            [
+                'name' => 'プライベート用',
+                'owner_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' =>Carbon::now(),
+            ],
+            [
+                'name' => '仕事用',
+                'owner_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' =>Carbon::now(), 
+            ]
         ]);
     }
 }

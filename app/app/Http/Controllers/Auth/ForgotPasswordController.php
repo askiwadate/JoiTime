@@ -19,4 +19,11 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+
+    public function index(){
+        return redirect('forgot');
+    }
+    
+
+    
 }

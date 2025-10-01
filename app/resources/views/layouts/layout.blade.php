@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,27 +36,67 @@
 
 </head>
 <body class="d-flex flex-column min-vh-100">
-  <!-- ログイン前 -->
-  <!-- <nav class="navbar navbar-expand-md navbar-light bg-white">
-    <div class="container-fluid">
-      <a href="" class="pl-3">
-        <img src="{{ asset('img/logo.png') }}" alt="">
-      </a>
-    </div>
-  </nav> -->
-
   <!-- ログイン後 -->
-  <nav class="navbar-after navbar-expand-md navbar-light bg-white">
+  @if(Auth::check())
+<nav class="navbar navbar-expand-md navbar-light bg-white">
     <div class="container-fluid">
-      <a href="" class="pl-3">
+      <a href="{{ route('calendars.show', ['calendar_id' => $myCalendars ?? '#']) }}" class="pl-3">
         <img src="{{ asset('img/logo.png') }}" alt="">
       </a>
-
       <div class="align-items-center" id="loginHeader-sm">
         <button class="rounded-circle img-nonimg ml-3" data-container="body" data-toggle="popover" data-placement="bottom"><img src="" alt="" class=""></button>
       </div>
     </div>
-  </nav> 
+</nav>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
+
+<script>
+$(function () {
+    // Popover 初期化
+    $('[data-toggle="popover"]').popover({
+        html: true,
+        content: `
+        <div>
+            <div>プロフィール画像</div>
+            <p>{{ Auth::user()->name }}</p>
+            <p>生年月日</p>
+            <a href="#" id="logout-link">ログアウト</a>
+        </div>
+        `,
+        placement: 'bottom'
+    });
+
+    // Popover 内のログアウトリンク
+    $(document).on('click', '#logout-link', function(e) {
+        e.preventDefault();
+        $('#logout-form').submit();
+    });
+});
+</script>
+  <!-- ログイン前 -->
+  @else
+  <nav class="navbar navbar-expand-md navbar-light bg-white">
+    <div class="container-fluid">
+      <a href="{{ route('login') }}" class="pl-3">
+        <img src="{{ asset('img/logo.png') }}" alt="">
+      </a>
+    </div>
+  </nav>
+  @endif
+  <!-- ログイン後 -->
+  <!-- <nav class="navbar-after navbar-expand-md navbar-light bg-white">
+    <div class="container-fluid">
+      <a href="" class="pl-3">
+        <img src="{{ asset('img/logo.png') }}" alt="">
+      </a>
+      <div class="align-items-center" id="loginHeader-sm">
+        <button class="rounded-circle img-nonimg ml-3" data-container="body" data-toggle="popover" data-placement="bottom"><img src="" alt="" class=""></button>
+      </div>
+    </div>
+  </nav>  -->
 
   <!-- 管理者用ヘッダー -->
   <!-- <nav class="navbar-after navbar-expand-md navbar-light bg-white" style="padding: 1rem 0.78rem !important">
@@ -71,21 +111,6 @@
   @yield('content')
   </main>
   @yield('scripts')
-  <script>
-    $(function () {
-       $('[data-toggle="popover"]').popover({
-       html: true,
-       content: `
-      <div class="">
-       <div>プロフィール画像</div>
-       <p>ユーザー名</p>
-       <p>生年月日</p>
-      </div>
-    `,
-    placement: 'bottom'
-  });
-});
-</script>
 </body>
 </html>
 
