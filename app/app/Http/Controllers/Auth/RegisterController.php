@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Calendar;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -29,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    public const HOME = '/calendars';
 
     /**
      * Create a new controller instance.
@@ -39,6 +41,22 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        // ユーザーの最初のカレンダーを取得
+        $calendar = $user->ownedCalendars()->first();
+
+        // カレンダーがなければ作成
+        if (!$calendar) {
+            $calendar = $user->ownedCalendars()->create([
+                'name' => $user->name . 'のカレンダー',
+            ]);
+        }
+
+        // 作成したカレンダー詳細ページへリダイレクト
+        return redirect()->route('calendars.show', ['calendar_id' => $calendar->id]);
     }
 
     /**
@@ -62,12 +80,22 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+
+
     protected function create(array $data)
     {
-        return User::create([
+        // ユーザー作成
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => $data['password'], // モデルで自動ハッシュ
         ]);
+
+        // カレンダー作成（nameカラムを使用）
+        $user->ownedCalendars()->create([
+            'name' => $user->name . 'のカレンダー',
+        ]);
+
+        return $user;
     }
 }

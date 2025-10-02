@@ -35,7 +35,7 @@
               </div>
             </li>
             <li class="nav-item mb-4">
-              <a class="nav-link active flex-sm align-items-center panel-link" data-toggle="modal" data-target="#createCalendar">
+              <a class="nav-link active flex-sm align-items-center panel-link" data-toggle="modal" data-target="#UserControlModal">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="svg-2"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M463 448.2C440.9 409.8 399.4 384 352 384L288 384C240.6 384 199.1 409.8 177 448.2C212.2 487.4 263.2 512 320 512C376.8 512 427.8 487.3 463 448.2zM64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM320 336C359.8 336 392 303.8 392 264C392 224.2 359.8 192 320 192C280.2 192 248 224.2 248 264C248 303.8 280.2 336 320 336z"/></svg>
                 <span class="ml-2">ユーザー設定</span>
               </a>
@@ -48,18 +48,15 @@
           <div id="panel-content"></div>
           <button id="close-panel" class="btn btn-sm btn-outline-dark disabled">×</button>
         </div>
-        <!-- カード置き場 -->
-        <div id="panel-cards" class="card-list m-3">
-          <!-- ここに複数のカードが入る -->
+          <div id="panel-cards" class="card-list m-3">
         </div>
       </div>
-      <!-- カレンダーメイン部分 -->
       <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+        <!-- fullcalendar -->
         <div id="calendar"></div>
-        <!-- class="table-responsive mt-4" -->
         <!-- 予定作成ボタン -->
         <a href="#">
-          <div class="position-fixed rounded-circle text-white d-flex justify-content-center align-items-center" style="background: #3E6ED6; bottom: 2%; right: 2%; width: 55px; height: 55px; z-index: 2000;" data-toggle="modal" data-target="#postModal">
+          <div class="position-fixed rounded-circle text-white d-flex justify-content-center align-items-center" style="background: #ED665E; bottom: 4%; right: 2%; width: 55px; height: 55px; z-index: 2000;" data-toggle="modal" data-target="#postModal">
             <i class="fas fa-plus"></i>
           </div>
         </a>
@@ -69,6 +66,51 @@
 
 
   <!-- モーダル -->
+  <!-- ユーザー設定モーダル -->
+  <div class="modal fade" id="UserControlModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center">
+          <h5 class="modal-title">ユーザー情報</h5>
+          <button type="button" class="close position-absolute" style="right: 15px;" data-dismiss="modal">&times;</button>
+        </div>
+
+        <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          @method('PUT')
+
+          <div class="modal-body">
+            <div class="text-center my-3">
+              @if(Auth::user()->icon)
+              <img src="{{ asset('storage/' . Auth::user()->icon) }}" alt="アイコン" class="rounded-circle" width="100" height="100">
+              @else
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width: 10rem;"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M463 448.2C440.9 409.8 399.4 384 352 384L288 384C240.6 384 199.1 409.8 177 448.2C212.2 487.4 263.2 512 320 512C376.8 512 427.8 487.3 463 448.2zM64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM320 336C359.8 336 392 303.8 392 264C392 224.2 359.8 192 320 192C280.2 192 248 224.2 248 264C248 303.8 280.2 336 320 336z"/></svg>
+              @endif
+            </div>
+            
+            <div class="form-group pr-5 pl-5 mb-4">
+              <input type="file" name="icon" class="form-control-file">
+            </div>
+            <div class="form-group d-flex justify-content-between align-items-center pr-5 pl-5">
+              <p class="mb-0 pr-1">ユーザー名</p>
+              <input type="text" name="name" value="{{ old('name', Auth::user()->name) }}" class="form-control" style="width: 75%;" required>
+            </div>
+
+            <div class="form-group d-flex justify-content-between align-items-center pr-5 pl-5">
+              <p class="mb-0 pr-1">生年月日</p>
+              <input type="date" name="birthday" value="{{ old('birthday', Auth::user()->birthday) }}" class="form-control" style="width: 75%;">
+            </div>
+
+            <div class="d-flex justify-content-center mb-3 mt-4">
+              <button type="submit" class="btn btn-submit">保存</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- ユーザー設定モーダルここまで -->
+
   <!-- カレンダー追加用モーダル -->
   <div class="modal fade" id="createCalendar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -91,6 +133,7 @@
       </form>
     </div>
   </div>
+  
 
   <!-- 投稿モーダル -->
   <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
@@ -107,18 +150,18 @@
           <input type="hidden" name="calendar_id" value="{{ $calendar->id }}">
           <div class="modal-body pr-5 pl-5">
             <div class="form-group">
-              <label for="category">タイトル</label>
+              <label for="title">タイトル</label>
               <input type="text" name="title" class="form-control" required>
             </div>
 
             <div class="form-group">
               <div class="d-flex justify-content-between align-items-center" >
-                <label for="start-date">開始</label>
+                <label for="start-date" class="mb-0">開始</label>
                 <input type="date" class="form-control" name="start_date" id="start-date" style="width: 10rem;">
                 <input type="time" class="form-control" name="start_time" style="width: 10rem;">
               </div>
               <div class="d-flex justify-content-between align-items-center mt-2">
-                <label for="end-date">終了</label>
+                <label for="end-date" class="mb-0">終了</label>
                 <input type="date" class="form-control" name="end_date" id="end-date" style="width: 10rem;">
                 <input type="time" class="form-control" name="end_time" style="width: 10rem;">
               </div>
@@ -328,7 +371,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const calendarEl = document.getElementById('calendar');
   const calendarId = @json($calendar->id);
-
+  
+  let myCalendarName = @json($calendar->name);
   let currentEventId = null; // 編集モーダル用の現在イベントID
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -337,98 +381,115 @@ document.addEventListener('DOMContentLoaded', () => {
     height: 'auto',
     headerToolbar: {
       left: 'prev,title,next',
+      center: 'myCalendarName',
       right: 'dayGridMonth,dayGridWeek',
+    },
+    customButtons:{
+      myCalendarName:{
+        text:myCalendarName,
+      }
     },
     buttonText: {
       month: '月表示',
       week: '週表示',
     },
+    eventDidMount: function(info) {
+    if (info.event.allDay) {
+      // 終日イベントの色
+      info.el.style.backgroundColor = '#ED665E';
+      info.el.style.borderColor = '#ED665E';
+      info.el.style.color = 'white';
+    } else {
+      // 時間指定イベントの色
+      info.el.style.marginRight = '0.5rem';
+    }
+    },
     events: `/calendars/${calendarId}/schedules/json`,
 
     eventClick: function(info) {
-  const schedule = info.event.extendedProps;
-  currentEventId = info.event.id; // 編集用に保持
+    const schedule = info.event.extendedProps;
+    currentEventId = info.event.id; // 編集用に保持
 
-  // --- 詳細モーダルにセット ---
-  document.getElementById('detailTitle').innerText = info.event.title;
-  document.getElementById('detailCategory').innerText = schedule.category_name || '-';
+    // --- 詳細モーダルにセット ---
+    document.getElementById('detailTitle').innerText = info.event.title;
+    document.getElementById('detailCategory').innerText = schedule.category_name || '-';
 
-  if (schedule.all_day) {
-    // 終日なら日付だけ表示
-    document.getElementById('detailStart').innerText = info.event.start.toLocaleDateString();
-    if (info.event.end) {
-      const end = new Date(info.event.end);
-      document.getElementById('detailEnd').innerText = end.toLocaleDateString();
+    if (schedule.all_day) {
+      // 終日なら日付だけ表示
+      document.getElementById('detailStart').innerText = info.event.start.toLocaleDateString();
+      if (info.event.end) {
+        const end = new Date(info.event.end);
+        document.getElementById('detailEnd').innerText = end.toLocaleDateString();
+      } else {
+        document.getElementById('detailEnd').innerText = info.event.start.toLocaleDateString();
+      }
     } else {
-      document.getElementById('detailEnd').innerText = info.event.start.toLocaleDateString();
-    }
-  } else {
-    // 通常イベント
-    document.getElementById('detailStart').innerText = info.event.start.toLocaleString();
-    document.getElementById('detailEnd').innerText = info.event.end ? info.event.end.toLocaleString() : '-';
-  }
-
-  document.getElementById('detailPlace').innerText = schedule.place_name || '-';
-  document.getElementById('detailComment').innerText = schedule.comment || '-';
-
-  // 削除フォーム
-  const deleteForm = document.getElementById('deleteScheduleForm');
-  deleteForm.action = `/schedules/${info.event.id}/delete`;
-
-  // --- 編集フォームにセット ---
-  const editForm = document.getElementById('editScheduleForm');
-  editForm.action = `/schedules/${info.event.id}`;
-  editForm.dataset.eventId = info.event.id;
-
-  document.getElementById('editTitle').value = info.event.title;
-  document.getElementById('editCategory').value = schedule.category_id || '';
-
-  if (schedule.all_day) {
-    // 終日なら日付だけセット
-    const start = new Date(info.event.start);
-    document.getElementById('edit-start-date').value = start.toISOString().slice(0,10);
-
-    if (info.event.end) {
-      const end = new Date(info.event.end);
-      document.getElementById('edit-end-date').value = end.toISOString().slice(0,10);
-    } else {
-      document.getElementById('edit-end-date').value = start.toISOString().slice(0,10);
+      // 通常イベント
+      document.getElementById('detailStart').innerText = info.event.start.toLocaleString();
+      document.getElementById('detailEnd').innerText = info.event.end ? info.event.end.toLocaleString() : '-';
     }
 
-    // 時間は空欄に
-    document.getElementById('edit-start-time').value = '';
-    document.getElementById('edit-end-time').value = '';
-  } else {
-    // 通常イベント
-    if(info.event.start){
+    document.getElementById('detailPlace').innerText = schedule.place_name || '-';
+    document.getElementById('detailComment').innerText = schedule.comment || '-';
+
+    // 削除フォーム
+    const deleteForm = document.getElementById('deleteScheduleForm');
+    deleteForm.action = `/schedules/${info.event.id}/delete`;
+
+    // --- 編集フォームにセット ---
+    const editForm = document.getElementById('editScheduleForm');
+    editForm.action = `/schedules/${info.event.id}`;
+    editForm.dataset.eventId = info.event.id;
+
+    document.getElementById('editTitle').value = info.event.title;
+    document.getElementById('editCategory').value = schedule.category_id || '';
+
+    if (schedule.all_day) {
+      // 終日なら日付だけセット
       const start = new Date(info.event.start);
       document.getElementById('edit-start-date').value = start.toISOString().slice(0,10);
-      document.getElementById('edit-start-time').value = start.toTimeString().slice(0,5);
-    }
 
-    if(info.event.end){
-      const end = new Date(info.event.end);
-      document.getElementById('edit-end-date').value = end.toISOString().slice(0,10);
-      document.getElementById('edit-end-time').value = end.toTimeString().slice(0,5);
-    } else {
-      document.getElementById('edit-end-date').value = '';
+      if (info.event.end) {
+        const end = new Date(info.event.end);
+        document.getElementById('edit-end-date').value = end.toISOString().slice(0,10);
+      } else {
+        document.getElementById('edit-end-date').value = start.toISOString().slice(0,10);
+      }
+
+      // 時間は空欄に
+      document.getElementById('edit-start-time').value = '';
       document.getElementById('edit-end-time').value = '';
+    } else {
+      // 通常イベント
+      if(info.event.start){
+        const start = new Date(info.event.start);
+        document.getElementById('edit-start-date').value = start.toISOString().slice(0,10);
+        document.getElementById('edit-start-time').value = start.toTimeString().slice(0,5);
+      }
+
+      if(info.event.end){
+        const end = new Date(info.event.end);
+        document.getElementById('edit-end-date').value = end.toISOString().slice(0,10);
+        document.getElementById('edit-end-time').value = end.toTimeString().slice(0,5);
+      } else {
+        document.getElementById('edit-end-date').value = '';
+        document.getElementById('edit-end-time').value = '';
+      }
     }
+
+    document.getElementById('edit-fullday').checked = schedule.all_day ? true : false;
+
+    document.getElementById('edit-placeInput').value = schedule.place_name || '';
+    document.getElementById('edit_place_address').value = schedule.place_address || '';
+    document.getElementById('edit_latitude').value = schedule.latitude || '';
+    document.getElementById('edit_longitude').value = schedule.longitude || '';
+
+    document.getElementById('editComment').value = schedule.comment || '';
+
+    // 詳細モーダル表示
+    $('#detailModal').modal('show');
   }
-
-  document.getElementById('edit-fullday').checked = schedule.all_day ? true : false;
-
-  document.getElementById('edit-placeInput').value = schedule.place_name || '';
-  document.getElementById('edit_place_address').value = schedule.place_address || '';
-  document.getElementById('edit_latitude').value = schedule.latitude || '';
-  document.getElementById('edit_longitude').value = schedule.longitude || '';
-
-  document.getElementById('editComment').value = schedule.comment || '';
-
-  // 詳細モーダル表示
-  $('#detailModal').modal('show');
-}
-  });
+});
 
   calendar.render();
 
@@ -446,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevBtn = document.querySelector('.fc-prev-button');
   if (prevBtn) {
     prevBtn.style.marginRight = '0.75rem';
-    prevBtn.style.backgroundColor = '#3E6ED6';
+    prevBtn.style.backgroundColor = '#3762F5';
     prevBtn.style.width = '40px';
     prevBtn.style.height = '40px';
     prevBtn.style.borderRadius = '50%';
@@ -458,73 +519,106 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextBtn = document.querySelector('.fc-next-button');
   if (nextBtn) {
     nextBtn.style.marginLeft = '0.75rem';
-    nextBtn.style.backgroundColor = '#3E6ED6';
+    nextBtn.style.backgroundColor = '#3762F5';
     nextBtn.style.width = '40px';
     nextBtn.style.height = '40px';
     nextBtn.style.borderRadius = '50%';
     nextBtn.style.border = 'none';
     nextBtn.style.alignItems = 'center';
   }
+  
+  // カレンダー名
+  const calendarTitle = document.querySelector('.fc-myCalendarName-button');
+  if (calendarTitle) {
+    calendarTitle.style.marginLeft = '0.5rem';
+    calendarTitle.style.backgroundColor = 'transparent';
+    calendarTitle.style.border = 'none';
+    calendarTitle.style.color = '#64B279';
+    calendarTitle.style.alignItems = 'center';
+    calendarTitle.style.pointerEvents = 'none';
+    calendarTitle.style.fontWeight = 'bold';
+  }
 
-// --- 編集フォームAjax送信 ---
-$('#editScheduleForm').on('submit', function(e){
-  e.preventDefault();
-  const id = $(this).data('event-id');
-  const data = $(this).serialize();
+  // テーブルヘッダー
+  const calendarTr = document.querySelector('.fc-col-header');
+  if (calendarTr) {
+    calendarTr.style.backgroundColor = '#E1F1E5';
+    calendarTr.style.borderRadius = '0px';
+  }
 
-  $.ajax({
-    url: `/schedules/${id}`,
-    method: 'PUT',
-    data: data,
-    success: function(res){
-      $('#editModal').modal('hide');
-      $('.modal-backdrop').remove();
-      $('body').removeClass('modal-open');
-      currentEventId = null;
+  // テーブル
+  const calendarTable = document.querySelector('table');
+  if (calendarTable) {
+    calendarTable.style.borderRadius = '0px';
+  }
 
-      const event = calendar.getEventById(id);
-      event.setProp('title', res.title);
-      event.setExtendedProp('category_id', res.category_id);
-      event.setExtendedProp('place_name', res.place_name);
-      event.setExtendedProp('place_address', res.place_address);
-      event.setExtendedProp('latitude', res.latitude);
-      event.setExtendedProp('longitude', res.longitude);
-      event.setExtendedProp('comment', res.comment);
+  // カレンダーの背景
+  const calendarBody = document.querySelector('.fc-view-harness-passive');
+  if (calendarBody) {
+    calendarBody.style.backgroundColor = 'white';
+  }
 
-      // --- 終日対応 修正版 ---
-      const isAllDay = res.all_day ? true : false;
-      let start, end;
 
-      if (isAllDay) {
-        start = new Date(res.start_date);
-        if (res.end_date) {
-          end = new Date(res.end_date);
-          // FullCalendarは終日イベントのendを「翌日」にする必要あり
-          end.setDate(end.getDate() + 1);
+
+  // --- 編集フォームAjax送信 ---
+  $('#editScheduleForm').on('submit', function(e){
+    e.preventDefault();
+    const id = $(this).data('event-id');
+    const data = $(this).serialize();
+
+    $.ajax({
+      url: `/schedules/${id}`,
+      method: 'PUT',
+      data: data,
+      success: function(res){
+        $('#editModal').modal('hide');
+        $('.modal-backdrop').remove();
+        $('body').removeClass('modal-open');
+        currentEventId = null;
+
+        const event = calendar.getEventById(id);
+        event.setProp('title', res.title);
+        event.setExtendedProp('category_id', res.category_id);
+        event.setExtendedProp('category_name', res.category_name);
+        event.setExtendedProp('place_name', res.place_name);
+        event.setExtendedProp('place_address', res.place_address);
+        event.setExtendedProp('latitude', res.latitude);
+        event.setExtendedProp('longitude', res.longitude);
+        event.setExtendedProp('comment', res.comment);
+
+        // --- 終日対応 修正版 ---
+        const isAllDay = res.all_day ? true : false;
+        let start, end;
+
+        if (isAllDay) {
+          start = new Date(res.start_date);
+          if (res.end_date) {
+            end = new Date(res.end_date);
+            // FullCalendarは終日イベントのendを「翌日」にする必要あり
+            end.setDate(end.getDate() + 1);
+          } else {
+            end = new Date(res.start_date);
+            end.setDate(end.getDate() + 1);
+          }
         } else {
-          end = new Date(res.start_date);
-          end.setDate(end.getDate() + 1);
+          // 時間付きイベント
+          start = new Date(res.start_date + 'T' + (res.start_time || '00:00'));
+          if (res.end_date) {
+            end = new Date(res.end_date + 'T' + (res.end_time || '23:59'));
+          } else {
+            end = null;
+          }
         }
-      } else {
-        // 時間付きイベント
-        start = new Date(res.start_date + 'T' + (res.start_time || '00:00'));
-        if (res.end_date) {
-          end = new Date(res.end_date + 'T' + (res.end_time || '23:59'));
-        } else {
-          end = null;
-        }
+
+        event.setAllDay(isAllDay);
+        event.setStart(start);
+        event.setEnd(end);
+      },
+      error: function(){
+        alert('編集の更新に失敗しました');
       }
-
-      event.setAllDay(isAllDay);
-      event.setStart(start);
-      event.setEnd(end);
-    },
-    error: function(){
-      alert('編集の更新に失敗しました');
-    }
+    });
   });
-});
-
 });
 
 // Google Places Autocomplete 初期化
@@ -557,38 +651,5 @@ $('#editModal').on('shown.bs.modal', function () {
   initAutocomplete('edit-placeInput', 'edit_place_address', 'edit_latitude', 'edit_longitude');
 });
 
-  // -------------------------------
-  // サイドパネル JS（既存のまま）
-  // -------------------------------
-  // document.addEventListener("DOMContentLoaded", () => {
-  //   const panelContent = document.getElementById("panel-content");
-  //   const panelCards = document.getElementById("panel-cards");
-  //   const rightPanel = document.getElementById("overlay-panel");
-
-  //   function setPanelPosition() {
-  //     const sidebarWidth = sidebar.getBoundingClientRect().width;
-  //     rightPanel.style.left = sidebarWidth + "px";
-  //   }
-  //   setPanelPosition();
-  //   window.addEventListener("resize", setPanelPosition);
-
-  //   ["panel-new", "panel-member", "panel-info"].forEach(id => {
-  //     const link = document.getElementById(id);
-  //     if (!link) return;
-  //     link.addEventListener("click", e => {
-  //       e.preventDefault();
-  //       panelCards.innerHTML = "";
-  //       if (id === "panel-member") {
-  //         panelContent.innerHTML = `<h5 class="mb-0 font-weight-bold">メンバーリスト</h5>`;
-  //         panelCards.innerHTML = `<div class="card m-2"><div class="card-body"><input type="text" class="form-control mb-2" placeholder="メンバー検索"><ul><li>ユーザーA</li><li>ユーザーB</li></ul><button class="btn btn-sm btn-primary mt-2">招待リンクを発行</button></div></div>`;
-  //       } 
-  //       rightPanel.classList.add("active","scrollable");
-  //     });
-  //   });
-
-  //   document.getElementById("close-panel").addEventListener("click", () => {
-  //     rightPanel.classList.remove("active");
-  //   });
-  // });
 </script>
 @endsection

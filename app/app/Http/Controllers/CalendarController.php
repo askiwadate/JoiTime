@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Calendar;
 use App\Schedule;
+use App\User;
 use App\ScheduleCategory;
 use Illuminate\Http\Request;
+
 
 class CalendarController extends Controller
 {
@@ -22,18 +24,20 @@ class CalendarController extends Controller
 
     // カレンダー切り替え表示
     public function show($calendar_id){
-        // まだauth未導入なので固定
-        $userId = auth()->user();
-
+        $user = auth()->user(); // Userモデル取得
+    
         // 自分が作成したカレンダー一覧
-        $myCalendars =Calendar::where('owner_id',$userId)->get();
-
-        // どのカレンダーを表示するの選択（？caledar_id=xx)で指定
-        $calendar = Calendar::findOrFail($calendar_id);
-
-        $categories = $calendar->categories()->get(); // このカレンダーのカテゴリ一覧を取得
-
-        return view('calendars',compact('calendar','myCalendars','categories'));
+        $myCalendars = $user->ownedCalendars()->get(); // ownedCalendars()で取得すれば確実
+    
+        // 選択されたカレンダー（自分のものかチェック）
+        $calendar = $myCalendars->find($calendar_id);
+        if (!$calendar) {
+            abort(404); // 自分のカレンダーでなければ404
+        }
+    
+        $categories = $calendar->categories()->get();
+    
+        return view('calendars', compact('calendar', 'myCalendars', 'categories'));
     }
 
     // カレンダー作成

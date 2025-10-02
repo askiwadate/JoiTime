@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CalendarController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Hash;
 
 /*
@@ -24,6 +25,8 @@ Auth::routes();
 Route::group(['middleware' => 'auth'],function(){
   // パスワード忘れた人用
   Route::get('/calendars/fogot/password',[ForgotPasswordController::class,'index'])->name('forgot');
+  // ユーザー情報更新
+  Route::put('/calendars/profile',[ProfileController::class,'update'])->name('profile.update');
   // カレンダー一覧表示
   Route::get('/calendars/{calendar_id}', [CalendarController::class,'show'])->name('calendars.show');
   // カレンダー作成（Ajax用）
@@ -34,13 +37,14 @@ Route::group(['middleware' => 'auth'],function(){
   Route::get('/calendars/{calendar}/schedules/json', [CalendarController::class, 'schedulesJson'])->name('schedules.json');
   // カレンダーIDに紐づけてカテゴリを追加
   Route::post('/calendars/{calendar}/categories', [CalendarController::class, 'storeCategory'])->name('categories.store');
-  // Schedule編集フォーム表示
+  // 予定編集フォーム表示
   Route::get('/schedules/{schedule}/edit', [CalendarController::class, 'edit'])->name('schedules.edit');
 
-  // Schedule更新
+  // 予定更新
   Route::put('/schedules/{schedule}', [CalendarController::class, 'update'])->name('schedules.update');
-  // Schedule削除（論理削除）
+  // 予定削除（論理削除）
   Route::delete('/schedules/{id}/delete', [CalendarController::class, 'softDelete'])->name('schedules.delete');
+
   Route::put('/schedules/{id}/update', [CalendarController::class, 'update'])->name('schedules.update');
   // ログアウト
   Route::post('/logout',[LoginController::class,'logout'])->name('logout');
