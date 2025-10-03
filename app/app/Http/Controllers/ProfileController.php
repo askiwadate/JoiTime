@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class ProfileController extends Controller
 {
@@ -13,9 +14,23 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $mail = $request->input('mail');
+        $name = $request->input('name');
+    
+        $query = User::query();
+    
+        if ($mail) {
+            $query->where('email', 'like', "%{$mail}%");
+        }
+        if ($name) {
+            $query->where('name', 'like', "%{$name}%");
+        }
+    
+        $users = $query->paginate(3); // 1ページ10件
+    
+        return view('usersManage', compact('users', 'mail', 'name'));
     }
 
     /**
@@ -45,9 +60,10 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         //
+        return view('usersManage');
     }
 
     /**

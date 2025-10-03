@@ -46,9 +46,4 @@ class User extends Authenticatable
         return $this->hasMany(Calendar::class, 'owner_id','id');
     }
 
-    // 共有カレンダー
-    public function calendars()
-    {
-        return $this->belongsToMany(Calendar::class, 'calendar_users', 'user_id', 'calendar_id');
-    }
 }

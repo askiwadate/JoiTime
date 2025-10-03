@@ -11223,6 +11223,11 @@ a.text-dark:focus {
     width: 30%;
     margin: 0 auto;
   }
+  
+  #headerNav{
+    padding-left: 0px;
+  }
+
 }
 
 #displayUnset, .flex-sm{
@@ -11242,3 +11247,4 @@ a.text-dark:focus {
   display: flex !important;
   align-items: center;
 }
+

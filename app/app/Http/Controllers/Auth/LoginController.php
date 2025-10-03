@@ -43,4 +43,16 @@ class LoginController extends Controller
         Auth::logout();
         return redirect('login');
     }
+
+    // 退会（物理削除）
+    public function signout()
+    {
+        $user = Auth::user();
+
+        $user->ownedCalendars()->delete();
+
+        $user->delete();
+        return redirect('register');
+    }
+    
 }
