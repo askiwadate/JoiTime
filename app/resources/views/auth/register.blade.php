@@ -9,7 +9,7 @@
 
             <div class="form-group mt-4 mr-2 ml-3">
                 <label for="name">ユーザー名<span class="ml-2 btn-danger rounded btn-required">必須</span></label>
-                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
                 @error('name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -19,7 +19,7 @@
 
             <div class="form-group mr-2 ml-3">
                 <label for="email">メールアドレス<span class="ml-2 btn-danger rounded btn-required">必須</span></label>
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
                 @error('email')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -29,7 +29,7 @@
 
             <div class="form-group mr-2 ml-3">
                 <label for="password">パスワード<span class="ml-2 btn-danger rounded btn-required">必須</span></label>
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
                 @error('password')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -39,7 +39,7 @@
 
             <div class="form-group mr-2 ml-3">
             <label for="password-confirm">再パスワード入力<span class="ml-2 btn-danger rounded btn-required">必須</span></label>
-            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
             </div>
 
             <div class="text-center mt-4 form-group">

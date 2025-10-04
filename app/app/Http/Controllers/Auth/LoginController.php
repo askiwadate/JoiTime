@@ -21,8 +21,14 @@ class LoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
+        // ログイン成功したら
         if (Auth::attempt($credentials)) {
-            // ログイン成功
+            $user = Auth()->user();
+
+            if($user->role == 0){
+                return redirect()->route('dashboard.index');
+            }
+
             $calendar = Auth::user()->ownedCalendars()->first(); // 作ったカレンダーだけ取得
         
             if ($calendar) {

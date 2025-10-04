@@ -32,7 +32,7 @@ class CalendarController extends Controller
         // 選択されたカレンダー（自分のものかチェック）
         $calendar = $myCalendars->find($calendar_id);
         if (!$calendar) {
-            abort(404); // 自分のカレンダーでなければ404
+            abort(403); // 自分のカレンダーでなければ404
         }
     
         $categories = $calendar->categories()->get();
@@ -44,7 +44,7 @@ class CalendarController extends Controller
     public function storeCalendar(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:50',
+            'calendar_title' => 'required|string|max:50',
         ]);
     
         $validated['owner_id'] = auth()->id() ?? 1;
@@ -58,21 +58,21 @@ class CalendarController extends Controller
 
     
    // 投稿モーダル
-public function store(Request $request, Calendar $calendar) {
-    // バリデーション
-    $validated = $request->validate([
-        'title' => 'required|string|max:50',
-        'start_date' => 'required|date',
-        'start_time' => 'nullable|date_format:H:i',
-        'end_date' => 'required|date',
-        'end_time' => 'nullable|date_format:H:i',
-        'all_day' => 'nullable|boolean',
-        'category_id' => 'required|exists:schedule_categories,id',
-        'comment' => 'nullable|string|max:255',
-        'place_name' => 'nullable|string|max:255',
-        'place_address' => 'nullable|string|max:255',
-        'latitude' => 'nullable|numeric',
-        'longitude' => 'nullable|numeric',
+    public function store(Request $request, Calendar $calendar) {
+        // バリデーション
+        $validated = $request->validate([
+            'title' => 'required|string|max:50',
+            'start_date' => 'required|date',
+            'start_time' => 'nullable|date_format:H:i',
+            'end_date' => 'required|date',
+            'end_time' => 'nullable|date_format:H:i',
+            'all_day' => 'nullable|boolean',
+            'category_id' => 'required|exists:schedule_categories,id',
+            'comment' => 'nullable|string|max:255',
+            'place_name' => 'nullable|string|max:255',
+            'place_address' => 'nullable|string|max:255',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
     ]);
 
     // チェックボックス未チェックでも false をセット

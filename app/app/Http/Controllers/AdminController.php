@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -16,6 +17,10 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        if(!$user || $user->role !== 0){
+            abort(403);
+        }
         //最近の登録者
         $recentUsers = User::latest()->take(4)->get();
 
@@ -67,6 +72,7 @@ class AdminController extends Controller
     public function show()
     {
         //
+        
         return view('dashboard');
     }
 

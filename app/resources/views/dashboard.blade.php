@@ -27,7 +27,7 @@
 			<!-- メイン -->
 			<!-- サイドバー「ダッシュボード」 -->
 			<div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 mt-4 mb-4">
-				<h3 class="font-weight-bolder">ダッシュボード</h3>
+				<h3 class="font-weight-bolder pl-1">ダッシュボード</h3>
 				<div class="row mt-4">
   				<div class="col-12">
    	 				<div class="card" style="background-color: #E1F1E5;">
@@ -49,7 +49,7 @@
 					<div class="col-sm-6 mt-4">
     				<div class="card">
       				<div class="card-body">
-        				<h5 class="card-title font-weight-bolder">ユーザーリスト</h5>
+        				<h5 class="card-title font-weight-bolder pl-1">ユーザーリスト</h5>
 								<div class="d-block d-md-block">
 								@foreach($recentUsers as $recent)
     						<div class="card mb-2 p-2">

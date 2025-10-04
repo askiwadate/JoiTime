@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\PasswordReset;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -44,6 +45,11 @@ class User extends Authenticatable
     public function ownedCalendars()
     {
         return $this->hasMany(Calendar::class, 'owner_id','id');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PasswordReset($token));
     }
 
 }

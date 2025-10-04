@@ -16,18 +16,25 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
+
+        if(!$user || $user->role !== 0){
+            abort(403);
+        }
+
         $mail = $request->input('mail');
         $name = $request->input('name');
     
         $query = User::query();
     
-        if ($mail) {
+        if ($mail && $name) {
+            $query->where('email', 'like', "%{$mail}%")->where('name', 'like', "%{$name}%");
+        } elseif ($mail) {
             $query->where('email', 'like', "%{$mail}%");
-        }
-        if ($name) {
+        } elseif ($name) {
             $query->where('name', 'like', "%{$name}%");
         }
-    
+
         $users = $query->paginate(3); // 1ページ10件
     
         return view('usersManage', compact('users', 'mail', 'name'));

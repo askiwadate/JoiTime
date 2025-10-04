@@ -117,6 +117,15 @@
       <form action="{{ route('calendars.store') }}" method="POST">
         @csrf
         <div class="modal-content">
+          @if($errors->any())
+          <div class="alert alert-danger modal-body">
+            <ul class="mb-0">
+              @foreach($errors->all() as $message)
+              <li>{{ $message }}</li>
+              @endforeach
+            </ul>
+          </div>
+          @endif
         <div class="modal-header justify-content-center">
           <button type="button" class="close position-absolute" style="right: 15px;" data-dismiss="modal" aria-label="閉じる">
             <span aria-hidden="true">&times;</span>
@@ -124,7 +133,7 @@
           <h5 class="modal-title" id="createCalendarLabel">カレンダー新規作成</h5>
         </div>
           <div class="modal-body">
-            <input type="text" name="name" id="newCalendarName" class="form-control" placeholder="カレンダー名" required>
+            <input type="text" name="calendar_title" id="newCalendarName" class="form-control" placeholder="カレンダー名" required>
           </div>
           <div class="d-flex justify-content-center mb-3">
             <button type="submit" class="btn btn-primary">作成</button>
@@ -145,25 +154,34 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form id="scheduleForm" method="POST" action="{{ route('schedules.store',$calendar->id) }}">
+        <form id="scheduleForm" method="POST" action="{{ route('schedules.store',$calendar->id) }}"  class="pre-scrollable">
           @csrf
           <input type="hidden" name="calendar_id" value="{{ $calendar->id }}">
           <div class="modal-body pr-5 pl-5">
+          @if($errors->any())
+          <div class="alert alert-danger modal-body">
+            <ul class="mb-0">
+              @foreach($errors->all() as $message)
+              <li>{{ $message }}</li>
+              @endforeach
+            </ul>
+          </div>
+          @endif
             <div class="form-group">
               <label for="title">タイトル</label>
-              <input type="text" name="title" class="form-control" required>
+              <input type="text" name="title" value="{{ old('title') }}" class="form-control">
             </div>
 
             <div class="form-group">
               <div class="d-flex justify-content-between align-items-center" >
                 <label for="start-date" class="mb-0">開始</label>
-                <input type="date" class="form-control" name="start_date" id="start-date" style="width: 10rem;">
-                <input type="time" class="form-control" name="start_time" style="width: 10rem;">
+                <input type="date" class="form-control" value="{{ old('start_date') }}" name="start_date" id="start-date" style="width: 10rem;">
+                <input type="time" class="form-control" value="{{ old('start_time') }}" name="start_time" style="width: 10rem;">
               </div>
               <div class="d-flex justify-content-between align-items-center mt-2">
                 <label for="end-date" class="mb-0">終了</label>
-                <input type="date" class="form-control" name="end_date" id="end-date" style="width: 10rem;">
-                <input type="time" class="form-control" name="end_time" style="width: 10rem;">
+                <input type="date" class="form-control" value="{{ old('end_date') }}" name="end_date" id="end-date" style="width: 10rem;">
+                <input type="time" class="form-control" value="{{ old('end_time') }}" name="end_time" style="width: 10rem;">
               </div>
 
               <div class="d-flex align-items-center mt-2 mb-3">
@@ -177,7 +195,7 @@
               <select name="category_id" class="form-control">
                 <option>選択してください</option>
                 @foreach($categories as $cat)
-                <option value="{{ $cat->id }}">{{ $cat->emoji }}{{ $cat->category_name }}</option>
+                <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ?'selected' : '' }}>{{ $cat->emoji }}{{ $cat->category_name }}</option>
                 @endforeach
               </select>
             </div>
@@ -367,13 +385,21 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn3dwzZ7uXEKObEJXwPV2G4MU4XX6IHJQ&loading=async&libraries=places">
 </script>
 <script>
+  $(document).ready(function(){
+      // エラーの時の投稿モーダル表示
+      @if($errors->any())
+      $('#postModal').modal('show');
+      @endif
+  });
+</script>
+<script>
 // fullcalendar
 document.addEventListener('DOMContentLoaded', () => {
   const calendarEl = document.getElementById('calendar');
   const calendarId = @json($calendar->id);
   
   let myCalendarName = @json($calendar->name);
-  let currentEventId = null; // 編集モーダル用の現在イベントID
+  let currentEventId = null;
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
@@ -419,6 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('detailStart').innerText = info.event.start.toLocaleDateString();
       if (info.event.end) {
         const end = new Date(info.event.end);
+        end.setDate(end.getDate()-1)
         document.getElementById('detailEnd').innerText = end.toLocaleDateString();
       } else {
         document.getElementById('detailEnd').innerText = info.event.start.toLocaleDateString();
@@ -447,6 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (schedule.all_day) {
       // 終日なら日付だけセット
       const start = new Date(info.event.start);
+      start.setDate(start.getDate()+1);
       document.getElementById('edit-start-date').value = start.toISOString().slice(0,10);
 
       if (info.event.end) {
@@ -553,7 +581,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // カレンダーの背景
-  const calendarBody = document.querySelector('.fc-view-harness-passive');
+  const calendarBody = document.querySelector('.fc-view');
   if (calendarBody) {
     calendarBody.style.backgroundColor = 'white';
   }

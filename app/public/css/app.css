@@ -74,6 +74,8 @@ body {
   text-align: left;
   background-color: #f8fafc;
   height: 100vh;
+  /* 追記 */
+  overflow-x: hidden;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -594,7 +596,7 @@ pre code {
 
 .pre-scrollable {
   /* max-height: 340px; */
-  max-height: 615px;
+  max-height: 660px;
   overflow-y: scroll;
 }
 
