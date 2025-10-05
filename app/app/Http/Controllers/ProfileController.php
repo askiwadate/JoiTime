@@ -25,7 +25,7 @@ class ProfileController extends Controller
         $mail = $request->input('mail');
         $name = $request->input('name');
     
-        $query = User::query();
+        $query = User::where('role',1);
     
         if ($mail && $name) {
             $query->where('email', 'like', "%{$mail}%")->where('name', 'like', "%{$name}%");
@@ -124,6 +124,19 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        if(!$user || $user->role !== 0){
+            abort(403);
+        }
+
+        $destroyUser = User::findOrfail($id);
+
+        if($destroyUser->id === $user->id){
+            return back()->with('error','管理者アカウントの削除はできません。');
+        }
+
+        $destroyUser->delete();
+
+        return back();
     }
 }

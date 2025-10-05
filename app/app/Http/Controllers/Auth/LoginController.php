@@ -50,14 +50,23 @@ class LoginController extends Controller
         return redirect('login');
     }
 
-    // 退会（物理削除）
+    // 退会（論理削除）
     public function signout()
     {
+        
         $user = Auth::user();
+        // まずログアウト
+        Auth::logout();
 
+        // ユーザー削除(論理削除)
+        $user->del_flg = 1;
+        $user->save();
+    
+        // カレンダー削除（del_flg用意していなかったため物理削除)
         $user->ownedCalendars()->delete();
-
-        $user->delete();
+    
+    
+        // 会員登録ページに遷移
         return redirect('register');
     }
     

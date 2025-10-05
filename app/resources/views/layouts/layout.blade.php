@@ -68,7 +68,7 @@
   @elseif(Auth::user()->role === 1)
   <nav class="navbar navbar-expand-md navbar-light bg-white">
     <div class="container-fluid">
-      @if($myCalendars->isNotEmpty())
+      @if(isset($myCalendars) && $myCalendars->isNotEmpty())
       <a href="{{ route('calendars.show', ['calendar_id' => $myCalendars->first()->id ]) }}" class="pl-3">
         <img src="{{ asset('img/logo.png') }}" alt="">
       </a>

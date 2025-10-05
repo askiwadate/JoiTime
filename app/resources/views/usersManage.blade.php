@@ -50,15 +50,17 @@
         <div class="card mt-4">
           <div class="card-body">
             <table class="table table-borderless" style="border: none;">
-  						<thead>
+  						<thead class="text-center">
     						<tr>
                   <th scope="col"></th>
       						<th scope="col">ユーザー名</th>
       						<th scope="col">メールアドレス</th>
 									<th scope="col">登録日</th>
+                  <th scope="col">アカウント削除</th>
+                  <th scope="col">ステータス</th>
     						</tr>
   						</thead>
-              <tbody>
+              <tbody class="text-center">
                 @foreach($users as $user)
                   <tr>
                     <th scope="row">
@@ -71,6 +73,21 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->created_at->format('Y.m.d') }}</td>
+                    <td>
+                      <form id="signout-form" action="{{ route('users.destroy',$user->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">削除</button>
+                      </form>
+                    </td>
+                    <td>
+                      @if ($user->del_flg)
+                      <span class="badge bg-secondary">退会済み</span>
+                      @else
+                      <span class="badge bg-success">利用中</span>
+                      @endif
+                      </td>
+                    <td></td>
                   </tr>
                 @endforeach
               </tbody>

@@ -7,6 +7,7 @@ use App\Schedule;
 use App\User;
 use App\ScheduleCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class CalendarController extends Controller
@@ -21,10 +22,10 @@ class CalendarController extends Controller
 
     //     return view('calendars');
     // }
-
+    
     // カレンダー切り替え表示
     public function show($calendar_id){
-        $user = auth()->user(); // Userモデル取得
+        $user = Auth::user(); // Userモデル取得
     
         // 自分が作成したカレンダー一覧
         $myCalendars = $user->ownedCalendars()->get(); // ownedCalendars()で取得すれば確実

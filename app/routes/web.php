@@ -29,7 +29,7 @@ use App\Http\Controllers\AdminController;
     Route::get('/calendars/fogot/password',[ForgotPasswordController::class,'index'])->name('forgot');
     // ユーザー情報更新
     Route::put('/calendars/profile',[ProfileController::class,'update'])->name('profile.update');
-    // カレンダー一覧表示
+    // カレンダー切り替え
     Route::get('/calendars/{calendar_id}', [CalendarController::class,'show'])->name('calendars.show');
     // カレンダー作成（Ajax用）
     Route::post('/calendars', [CalendarController::class, 'storeCalendar'])->name('calendars.store');
@@ -50,7 +50,7 @@ use App\Http\Controllers\AdminController;
     Route::put('/schedules/{id}/update', [CalendarController::class, 'update'])->name('schedules.update');
     // ログアウト
     Route::post('/logout',[LoginController::class,'logout'])->name('logout');
-    // ログアウト
+    // サインアウト（論理削除）
     Route::post('/signout',[LoginController::class,'signout'])->name('signout');
 
     // ユーザー制御（管理者）
@@ -58,4 +58,6 @@ use App\Http\Controllers\AdminController;
     Route::get('/admin/dashboard',[AdminController::class,'index'])->name('dashboard.index');
     // ユーザーリスト（ユーザー管理画面)
     Route::get('/admin/user/control',[ProfileController::class,'index'])->name('users.index');
+    // ユーザー削除（物理削除)
+    Route::delete('/admin/user/control/{id}',[ProfileController::class,'destroy'])->name('users.destroy');
    });
