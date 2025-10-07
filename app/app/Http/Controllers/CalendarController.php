@@ -8,6 +8,8 @@ use App\User;
 use App\ScheduleCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 
 class CalendarController extends Controller
@@ -60,8 +62,7 @@ class CalendarController extends Controller
     
    // 投稿モーダル
     public function store(Request $request, Calendar $calendar) {
-        // バリデーション
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:50',
             'start_date' => 'required|date',
             'start_time' => 'nullable|date_format:H:i',
@@ -74,20 +75,25 @@ class CalendarController extends Controller
             'place_address' => 'nullable|string|max:255',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
-    ]);
-
-    // チェックボックス未チェックでも false をセット
-    $validated['all_day'] = $request->has('all_day') ? true : false;
-
-    // 必須データを追加
-    $validated['calendar_id'] = $calendar->id;
-    $validated['creator_id'] = auth()->id() ?? 1;
-
-    // DB保存
-    $schedule = Schedule::create($validated);
-
-    // 成功したら元のページにリダイレクト
-    return redirect()->back();
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator, 'scheduleForm')
+                ->withInput();
+        }
+    
+        $validated = $validator->validated();
+    
+        $validated['all_day'] = $request->has('all_day') ? true : false;
+    
+        $validated['calendar_id'] = $calendar->id;
+        $validated['creator_id'] = auth()->id() ?? 1;
+    
+        Schedule::create($validated);
+    
+        return redirect()->back();
 }
     
     // カレンダー反映
@@ -125,16 +131,37 @@ class CalendarController extends Controller
 
     // カテゴリ登録
     public function storeCategory(Request $request, Calendar $calendar){
-        $validated = $request->validate([
-            'emoji' => 'nullable|string|max:100',
-            'category_name' => 'required|string|max:100',
+        $validator = Validator::make($request->all(), [
+            'emoji' => 'required|string|max:100',
+            'category_name' => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('schedule_categories')->where(function ($query) {
+                    return $query->where('user_id', auth()->id());
+                }),
+            ],
+        ], [
+            'category_name.required' => 'カテゴリ名を入力してください。',
+            'emoji.required' => 'カテゴリアイコンを入力してください。',
+            'category_name.unique' => '同じカテゴリ名は登録できません。',
         ]);
-        
-        $validated['calendar_id'] = $calendar->id;
-        $validated['user_id'] = auth()->id() ?? 1;
-        $validated['del_flg'] = 0;
-        
-        ScheduleCategory::create($validated);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator, 'categoryForm') // ← 名前付きエラーバッグ
+                ->withInput()
+                ->with('error', 'カテゴリ登録に失敗しました');
+        }
+
+        ScheduleCategory::create([
+            'emoji' => $request->emoji,
+            'category_name' => $request->category_name,
+            'calendar_id' => $calendar->id,
+            'user_id' => auth()->id() ?? 1,
+            'del_flg' => 0,
+        ]);
+    
         return redirect()->back();
     }
 

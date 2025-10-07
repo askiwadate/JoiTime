@@ -6,10 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Calendar extends Model
 {
-    //共有ユーザー（多対多）
-    public function users(){
-        return $this->belongsToMany(User::class,'calendar_users','calendar_id','user_id');
-    }
+
 
     // カレンダー作成者
     public function owner(){

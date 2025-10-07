@@ -47,9 +47,20 @@ class User extends Authenticatable
         return $this->hasMany(Calendar::class, 'owner_id','id');
     }
 
+    // 作成したスケジュール
+    public function schedules(){
+        return $this->hasMany(Schedule::class,'creator_id','id');
+    }
+
+    // 作成したカテゴリ
+    public function categories(){
+        return $this->hasMany(ScheduleCategory::class,'user_id','id');
+    }
+
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new PasswordReset($token));
+
     }
 
 }

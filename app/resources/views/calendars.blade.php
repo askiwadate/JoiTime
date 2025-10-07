@@ -158,28 +158,28 @@
           @csrf
           <input type="hidden" name="calendar_id" value="{{ $calendar->id }}">
           <div class="modal-body pr-5 pl-5">
-          @if($errors->any())
+          @if($errors->scheduleForm->any())
           <div class="alert alert-danger modal-body">
             <ul class="mb-0">
-              @foreach($errors->all() as $message)
+              @foreach($errors->scheduleForm->all() as $message)
               <li>{{ $message }}</li>
               @endforeach
             </ul>
           </div>
           @endif
             <div class="form-group">
-              <label for="title">タイトル</label>
+              <label for="title">タイトル<span class="text-danger">*</span></label>
               <input type="text" name="title" value="{{ old('title') }}" class="form-control">
             </div>
 
             <div class="form-group">
               <div class="d-flex justify-content-between align-items-center" >
-                <label for="start-date" class="mb-0">開始</label>
+                <label for="start-date" class="mb-0">開始<span class="text-danger">*</span></label>
                 <input type="date" class="form-control" value="{{ old('start_date') }}" name="start_date" id="start-date" style="width: 10rem;">
                 <input type="time" class="form-control" value="{{ old('start_time') }}" name="start_time" style="width: 10rem;">
               </div>
               <div class="d-flex justify-content-between align-items-center mt-2">
-                <label for="end-date" class="mb-0">終了</label>
+                <label for="end-date" class="mb-0">終了<span class="text-danger">*</span></label>
                 <input type="date" class="form-control" value="{{ old('end_date') }}" name="end_date" id="end-date" style="width: 10rem;">
                 <input type="time" class="form-control" value="{{ old('end_time') }}" name="end_time" style="width: 10rem;">
               </div>
@@ -191,7 +191,7 @@
             </div>
 
             <div class="form-group">
-              <label for="category">カテゴリ</label>
+              <label for="category">カテゴリ<span class="text-danger">*</span></label>
               <select name="category_id" class="form-control">
                 <option>選択してください</option>
                 @foreach($categories as $cat)
@@ -276,13 +276,22 @@
         <form  method="POST" action="{{ route('categories.store',$calendar->id) }}">
           @csrf
           <div class="modal-body pr-5 pl-5">
+            @if($errors->categoryForm->any())
+            <div class="alert alert-danger modal-body">
+              <ul class="mb-0">
+                @foreach($errors->categoryForm->all() as $message)
+                <li>{{ $message }}</li>
+                @endforeach
+              </ul>
+            </div>
+            @endif
             <div class="form-group">
-              <label for="categoryName">カテゴリ名</label>
+              <label for="categoryName">カテゴリ名<span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="categoryName" name="category_name" placeholder="例：登山">
             </div>
 
             <div class="form-group">
-              <label for="emoji">カテゴリアイコン</label>
+              <label for="emoji">カテゴリアイコン<span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="emoji" name="emoji" placeholder="例：⛰️">
             </div>
 
@@ -385,12 +394,17 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn3dwzZ7uXEKObEJXwPV2G4MU4XX6IHJQ&loading=async&libraries=places">
 </script>
 <script>
-  $(document).ready(function(){
-      // エラーの時の投稿モーダル表示
-      @if($errors->any())
-      $('#postModal').modal('show');
-      @endif
+@if($errors->categoryForm->any())
+  $(document).ready(function() {
+    $('#categoryAddModal').modal('show');
   });
+@endif
+
+@if($errors->scheduleForm->any())
+  $(document).ready(function() {
+    $('#postModal').modal('show');
+  });
+@endif
 </script>
 <script>
 // fullcalendar

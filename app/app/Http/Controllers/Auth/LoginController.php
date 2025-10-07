@@ -13,6 +13,22 @@ class LoginController extends Controller
     // ログインフォーム表示
     public function showLoginForm()
     {
+        if (auth()->check()) {
+            $user = auth()->user();
+    
+            if ($user->role == 0) {
+                return redirect()->route('dashboard.index');
+            }
+    
+            $calendar = $user->ownedCalendars()->first();
+    
+            if ($calendar) {
+                return redirect()->route('calendars.show', $calendar->id);
+            } else {
+                abort(404);
+            }
+        }
+    
         return view('auth.login');
     }
 

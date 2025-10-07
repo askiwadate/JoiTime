@@ -109,7 +109,7 @@
             </div>
             <div><p>{{ Auth::user()->name }}</p></div>
             <div>              
-              @if(Auth::user()->icon)
+              @if(Auth::user()->birthday)
               <p>{{ Auth::user()->birthday }}</p>
               @endif
             </div>
