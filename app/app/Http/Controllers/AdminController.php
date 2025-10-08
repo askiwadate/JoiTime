@@ -22,7 +22,7 @@ class AdminController extends Controller
             abort(403);
         }
         //最近の登録者
-        $recentUsers = User::latest()->take(4)->get();
+        $recentUsers = User::where('role',1)->latest()->take(4)->get();
 
         // 月ごとの登録者数
         $monthUsers = User::select(

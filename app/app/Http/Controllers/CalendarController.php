@@ -50,11 +50,11 @@ class CalendarController extends Controller
             'calendar_title' => 'required|string|max:50',
         ]);
     
-        $validated['owner_id'] = auth()->id() ?? 1;
+        $calendar = Calendar::create([
+            'name' => $validated['calendar_title'], // ← カラム名に合わせて修正
+            'owner_id' => auth()->id(),
+        ]);
     
-        $calendar = Calendar::create($validated);
-    
-        // 作ったカレンダー画面にリダイレクト
         return redirect()->route('calendars.show', ['calendar_id' => $calendar->id]);
     }
     
@@ -149,7 +149,7 @@ class CalendarController extends Controller
     
         if ($validator->fails()) {
             return redirect()->back()
-                ->withErrors($validator, 'categoryForm') // ← 名前付きエラーバッグ
+                ->withErrors($validator, 'categoryForm')
                 ->withInput()
                 ->with('error', 'カテゴリ登録に失敗しました');
         }
@@ -169,7 +169,7 @@ class CalendarController extends Controller
     public function softDelete($id)
     {
         $schedule = Schedule::findOrFail($id);
-        $schedule->del_flg = 1; // 論理削除フラグを立てる
+        $schedule->del_flg = 1;
         $schedule->save();
     
         return redirect()->back();
@@ -196,12 +196,12 @@ public function update(Request $request, $id)
         'longitude' => 'nullable|numeric',
     ]);
 
-    // チェックボックスは未チェックだと送信されないので明示的に false をセット
+    // チェックボックスがチェックされてなかったら、falseを入れる
     $validated['all_day'] = $request->has('all_day') ? true : false;
 
     $schedule->update($validated);
 
-    // Ajax対応：JSONで返す
+    // Ajax
     return response()->json([
         'id' => $schedule->id,
         'title' => ($schedule->category ? $schedule->category->emoji . ' ' : '') . $schedule->title,
